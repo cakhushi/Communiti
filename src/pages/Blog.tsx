@@ -1,207 +1,386 @@
-import React from "react";
-import Layout from "../components/Layout";
-import { BlogPost } from "@/components/BlogPost";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileIcon, FileTextIcon, DownloadIcon, SearchIcon } from "lucide-react";
+import { Download, FileText, Calendar, Clock, ChevronRight, Search } from "lucide-react";
 
-const blogPosts = [
+// Blog data
+const featuredPosts = [
   {
-    title: "7 Tax-Saving Strategies for Small Business Owners in 2024",
-    slug: "tax-saving-strategies-small-business-2024",
-    excerpt: "Discover effective ways to minimize your tax burden while staying compliant with the latest regulations.",
+    id: 1,
+    slug: "tax-saving-tips-freelancers",
+    title: "5 Tax-Saving Tips Every Freelancer Should Know",
+    excerpt: "Learn how freelancers can optimize their tax strategy and save money with these essential tips.",
     category: "Tax Planning",
-    coverImage: "/images/blog/tax-saving.jpg",
-    author: {
-      name: "Priya Sharma",
-      avatar: "/images/avatars/priya.jpg"
-    },
-    date: "April 15, 2024",
-    readTime: "8 min read"
+    author: "Priya Sharma",
+    date: "May 15, 2024",
+    readTime: "7 min read",
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
   },
   {
-    title: "Understanding the New GST Changes for E-commerce Businesses",
-    slug: "gst-changes-ecommerce-businesses",
-    excerpt: "A comprehensive breakdown of recent GST modifications and how they impact online sellers.",
+    id: 2,
+    slug: "gst-compliance-guide-small-business",
+    title: "The Complete GST Compliance Guide for Small Businesses",
+    excerpt: "Navigate the complexities of GST with this comprehensive guide tailored for small business owners.",
     category: "GST",
-    coverImage: "/images/blog/gst-ecommerce.jpg",
-    author: {
-      name: "Rajesh Kumar",
-      avatar: "/images/avatars/rajesh.jpg"
-    },
-    date: "March 28, 2024",
-    readTime: "10 min read"
+    author: "Raj Patel",
+    date: "April 28, 2024",
+    readTime: "10 min read",
+    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  },
+];
+
+const latestPosts = [
+  {
+    id: 3,
+    slug: "new-tax-regime-vs-old",
+    title: "New Tax Regime vs Old: Which One Should You Choose in 2024-25?",
+    excerpt: "A detailed comparison of both tax regimes to help you make an informed decision for the current financial year.",
+    category: "Tax Planning",
+    author: "Aditya Gupta",
+    date: "June 2, 2024",
+    readTime: "8 min read",
+    image: "https://images.unsplash.com/photo-1565514020179-026b5cfd231c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
   },
   {
-    title: "Investment Options to Consider Before the Financial Year Ends",
-    slug: "investment-options-financial-year-end",
-    excerpt: "Maximize your returns and tax benefits with these investment strategies before March 31st.",
-    category: "Investments",
-    coverImage: "/images/blog/investments.jpg",
-    author: {
-      name: "Ananya Patel",
-      avatar: "/images/avatars/ananya.jpg"
-    },
-    date: "February 12, 2024",
-    readTime: "7 min read"
+    id: 4,
+    slug: "investment-strategies-beginners",
+    title: "Smart Investment Strategies for Beginners in 2024",
+    excerpt: "Start your investment journey with these proven strategies designed for beginners in the current market.",
+    category: "Investment",
+    author: "Sanjay Mehta",
+    date: "May 25, 2024",
+    readTime: "9 min read",
+    image: "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
   },
   {
-    title: "How to Prepare Financial Statements for Your Startup",
-    slug: "financial-statements-startup",
-    excerpt: "A step-by-step guide to creating accurate and compliant financial reports for new businesses.",
+    id: 5,
+    slug: "accounting-software-small-business",
+    title: "Top 7 Accounting Software for Small Businesses in India",
+    excerpt: "Find the perfect accounting solution for your small business with our comprehensive comparison.",
     category: "Accounting",
-    coverImage: "/images/blog/financial-statements.jpg",
-    author: {
-      name: "Vikram Singh",
-      avatar: "/images/avatars/vikram.jpg"
-    },
-    date: "January 20, 2024",
-    readTime: "12 min read"
+    author: "Neha Verma",
+    date: "May 18, 2024",
+    readTime: "6 min read",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
   },
   {
-    title: "Digital Accounting Tools Every Modern Business Should Use",
-    slug: "digital-accounting-tools-modern-business",
-    excerpt: "Streamline your financial processes with these cutting-edge accounting software and applications.",
-    category: "Technology",
-    coverImage: "/images/blog/digital-tools.jpg",
-    author: {
-      name: "Sneha Desai",
-      avatar: "/images/avatars/sneha.jpg"
-    },
-    date: "January 5, 2024",
-    readTime: "9 min read"
-  }
+    id: 6,
+    slug: "digital-marketing-tips-accounting-firms",
+    title: "Digital Marketing Tips for Accounting Firms",
+    excerpt: "Learn how accounting firms can leverage digital marketing to attract and retain clients.",
+    category: "Marketing",
+    author: "Vikram Singh",
+    date: "May 10, 2024",
+    readTime: "5 min read",
+    image: "https://images.unsplash.com/photo-1557838923-2985c318be48?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+  },
 ];
 
 const resources = [
   {
-    title: "2024 Tax Planning Guide",
-    description: "Comprehensive guide to optimize your tax strategy for the current financial year",
-    type: "PDF",
-    downloadUrl: "/resources/tax-planning-guide-2024.pdf",
-    size: "2.4 MB"
+    id: 1,
+    title: "Income Tax Return Checklist 2024-25",
+    description: "A comprehensive checklist of documents and information needed for filing ITR",
+    category: "Tax Filing",
+    format: "PDF",
+    size: "1.2 MB",
+    downloadUrl: "#",
   },
   {
-    title: "GST Compliance Checklist",
-    description: "Essential checklist to ensure your business remains compliant with GST regulations",
-    type: "PDF",
-    downloadUrl: "/resources/gst-compliance-checklist.pdf",
-    size: "1.8 MB"
+    id: 2,
+    title: "GST Return Filing Calendar FY 2024-25",
+    description: "Monthly and quarterly due dates for all GST returns",
+    category: "GST",
+    format: "PDF",
+    size: "0.9 MB",
+    downloadUrl: "#",
   },
   {
-    title: "Financial Ratios Calculator",
-    description: "Excel spreadsheet with pre-built formulas to calculate key financial performance indicators",
-    type: "Excel",
-    downloadUrl: "/resources/financial-ratios-calculator.xlsx",
-    size: "3.2 MB"
+    id: 3,
+    title: "Business Expense Tracker Template",
+    description: "Excel template to track and categorize business expenses",
+    category: "Accounting",
+    format: "Excel",
+    size: "2.4 MB",
+    downloadUrl: "#",
   },
   {
-    title: "Business Expense Tracker",
-    description: "Template to monitor and categorize business expenses for tax and accounting purposes",
-    type: "Excel",
-    downloadUrl: "/resources/business-expense-tracker.xlsx",
-    size: "2.7 MB"
+    id: 4,
+    title: "Investment Tax Benefits Guide 2024",
+    description: "Detailed guide on tax benefits for various investment options",
+    category: "Investment",
+    format: "PDF",
+    size: "1.8 MB",
+    downloadUrl: "#",
   },
-  {
-    title: "Investment Comparison Tool",
-    description: "Interactive tool to compare different investment options and their potential returns",
-    type: "Excel",
-    downloadUrl: "/resources/investment-comparison-tool.xlsx",
-    size: "4.1 MB"
-  }
+];
+
+const categories = [
+  "All",
+  "Tax Planning",
+  "GST",
+  "Accounting",
+  "Investment",
+  "Business",
+  "Marketing",
 ];
 
 const Blog = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeTab, setActiveTab] = useState("articles");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const filteredPosts = [...featuredPosts, ...latestPosts].filter(
+    (post) =>
+      (selectedCategory === "All" || post.category === selectedCategory) &&
+      (post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        post.category.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
+  const filteredResources = resources.filter(
+    (resource) =>
+      (selectedCategory === "All" || resource.category === selectedCategory) &&
+      (resource.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        resource.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        resource.category.toLowerCase().includes(searchTerm.toLowerCase()))
+  );
+
   return (
-    <Layout title="Financial Insights & Resources | Savvy Accountant Connect">
-      <div className="container mx-auto px-4 py-12">
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-4">
-            Financial Insights & Resources
-          </h1>
-          <p className="mx-auto max-w-3xl text-lg text-muted-foreground">
-            Expert advice, industry updates, and valuable resources to help you navigate your financial journey with confidence.
-          </p>
-        </div>
+    <Layout>
+      <Helmet>
+        <title>Financial Resources & Blog | Communiti Shared Services</title>
+        <meta
+          name="description"
+          content="Explore our collection of financial tips, guides, and downloadable resources to help you navigate tax planning, accounting, and business finances."
+        />
+      </Helmet>
 
-        <div className="flex flex-col md:flex-row w-full max-w-4xl mx-auto mb-10 gap-4">
-          <div className="relative flex-grow">
-            <SearchIcon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Search articles and resources..."
-              className="pl-10 w-full"
-            />
-          </div>
-          <div className="flex gap-2">
-            <Button variant="outline">Categories</Button>
-            <Button variant="outline">Recent</Button>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 py-20">
+        <div className="container-custom">
+          <div className="flex flex-col items-center text-center text-white">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              Financial Resources & Insights
+            </h1>
+            <p className="text-lg md:text-xl mb-8 max-w-3xl">
+              Explore our collection of expert articles, guides, and tools designed to help you navigate your financial journey with confidence
+            </p>
+            <div className="w-full max-w-md relative">
+              <Input
+                type="text"
+                placeholder="Search articles, resources..."
+                className="w-full pl-10 pr-4 py-3 rounded-lg text-gray-800"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            </div>
           </div>
         </div>
+      </section>
 
-        <Tabs defaultValue="articles" className="mb-12">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-8">
-            <TabsTrigger value="articles">Articles & Insights</TabsTrigger>
-            <TabsTrigger value="resources">Downloadable Resources</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="articles">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {blogPosts.map((post, index) => (
-                <BlogPost key={index} {...post} />
-              ))}
-            </div>
-            <div className="mt-10 text-center">
-              <Button>Load More Articles</Button>
-            </div>
-          </TabsContent>
-          
-          <TabsContent value="resources">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {resources.map((resource, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-xl">{resource.title}</CardTitle>
-                      <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                        {resource.type === "PDF" ? (
-                          <FileTextIcon className="h-4 w-4 text-primary" />
-                        ) : (
-                          <FileIcon className="h-4 w-4 text-primary" />
-                        )}
-                      </div>
-                    </div>
-                    <CardDescription className="mt-2">{resource.description}</CardDescription>
-                  </CardHeader>
-                  <CardFooter className="flex justify-between">
-                    <div className="text-sm text-muted-foreground">
-                      {resource.type} • {resource.size}
-                    </div>
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={resource.downloadUrl} download>
-                        <DownloadIcon className="mr-2 h-4 w-4" />
-                        Download
-                      </a>
+      <section className="py-16 bg-gray-50">
+        <div className="container-custom">
+          {/* Category Filter */}
+          <div className="mb-10 flex flex-wrap gap-2 justify-center">
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant={selectedCategory === category ? "default" : "outline"}
+                onClick={() => setSelectedCategory(category)}
+                className="rounded-full"
+              >
+                {category}
+              </Button>
+            ))}
+          </div>
+
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-12">
+              <TabsTrigger value="articles">Articles & Guides</TabsTrigger>
+              <TabsTrigger value="resources">Downloadable Resources</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="articles">
+              {/* Featured Posts */}
+              {searchTerm === "" && selectedCategory === "All" && (
+                <div className="mb-16">
+                  <h2 className="text-3xl font-bold mb-10 text-center">Featured Articles</h2>
+                  <div className="grid md:grid-cols-2 gap-8">
+                    {featuredPosts.map((post) => (
+                      <Card key={post.id} className="overflow-hidden transition-all hover:shadow-lg">
+                        <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
+                        <CardHeader>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full">{post.category}</span>
+                          </div>
+                          <CardTitle className="text-xl">
+                            <Link to={`/blog/${post.slug}`} className="hover:text-blue-600 transition-colors">
+                              {post.title}
+                            </Link>
+                          </CardTitle>
+                          <CardDescription>{post.excerpt}</CardDescription>
+                        </CardHeader>
+                        <CardFooter className="flex justify-between text-sm text-gray-500">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            <span>{post.date}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            <span>{post.readTime}</span>
+                          </div>
+                        </CardFooter>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Latest Articles */}
+              <div>
+                <h2 className="text-3xl font-bold mb-10 text-center">
+                  {filteredPosts.length > 0
+                    ? searchTerm
+                      ? "Search Results"
+                      : selectedCategory !== "All"
+                      ? `${selectedCategory} Articles`
+                      : "Latest Articles"
+                    : "No Articles Found"}
+                </h2>
+                {filteredPosts.length > 0 ? (
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {filteredPosts.map((post) => (
+                      <Card key={post.id} className="overflow-hidden transition-all hover:shadow-lg">
+                        <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
+                        <CardHeader>
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full">{post.category}</span>
+                          </div>
+                          <CardTitle className="text-xl">
+                            <Link to={`/blog/${post.slug}`} className="hover:text-blue-600 transition-colors">
+                              {post.title}
+                            </Link>
+                          </CardTitle>
+                          <CardDescription>{post.excerpt}</CardDescription>
+                        </CardHeader>
+                        <CardFooter className="flex justify-between text-sm text-gray-500">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="h-4 w-4" />
+                            <span>{post.date}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Clock className="h-4 w-4" />
+                            <span>{post.readTime}</span>
+                          </div>
+                        </CardFooter>
+                      </Card>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-lg text-gray-500 mb-4">No articles found matching your search criteria.</p>
+                    <Button onClick={() => {setSearchTerm(""); setSelectedCategory("All");}}>
+                      View All Articles
                     </Button>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+                  </div>
+                )}
+              </div>
+            </TabsContent>
 
-        <div className="bg-muted rounded-lg p-8 text-center">
-          <h2 className="text-2xl font-bold mb-4">Stay Updated with Our Newsletter</h2>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Subscribe to receive the latest financial tips, regulatory updates, and exclusive resources directly in your inbox.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <Input placeholder="Your email address" type="email" className="flex-grow" />
-            <Button>Subscribe</Button>
+            <TabsContent value="resources">
+              <h2 className="text-3xl font-bold mb-10 text-center">
+                {filteredResources.length > 0
+                  ? searchTerm
+                    ? "Search Results"
+                    : selectedCategory !== "All"
+                    ? `${selectedCategory} Resources`
+                    : "Downloadable Resources"
+                  : "No Resources Found"}
+              </h2>
+              {filteredResources.length > 0 ? (
+                <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+                  {filteredResources.map((resource) => (
+                    <Card key={resource.id} className="transition-all hover:shadow-lg">
+                      <CardHeader>
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <span className="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded-full mb-3 inline-block">
+                              {resource.category}
+                            </span>
+                            <CardTitle className="text-xl mb-2">{resource.title}</CardTitle>
+                            <CardDescription>{resource.description}</CardDescription>
+                          </div>
+                          <div className="bg-gray-100 p-3 rounded-full">
+                            <FileText className="h-6 w-6 text-blue-600" />
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardFooter className="flex justify-between">
+                        <div className="text-sm text-gray-500">
+                          {resource.format} • {resource.size}
+                        </div>
+                        <Button variant="outline" className="flex items-center gap-2">
+                          <Download className="h-4 w-4" />
+                          Download
+                        </Button>
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <p className="text-lg text-gray-500 mb-4">No resources found matching your search criteria.</p>
+                  <Button onClick={() => {setSearchTerm(""); setSelectedCategory("All");}}>
+                    View All Resources
+                  </Button>
+                </div>
+              )}
+            </TabsContent>
+          </Tabs>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-20 bg-blue-50">
+        <div className="container-custom">
+          <div className="bg-white p-8 md:p-12 rounded-2xl shadow-md max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
+            <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+              Get the latest financial tips, tax updates, and accounting insights delivered straight to your inbox
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <Input type="email" placeholder="Your email address" className="flex-grow" />
+              <Button>Subscribe</Button>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16">
+        <div className="container-custom">
+          <div className="flex flex-col md:flex-row md:items-center justify-between bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 p-8 md:p-12 rounded-2xl text-white">
+            <div className="md:w-2/3 mb-6 md:mb-0">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">Need Personalized Financial Advice?</h2>
+              <p className="text-white/90">
+                Our team of expert financial advisors is ready to help you navigate your specific financial challenges
+              </p>
+            </div>
+            <Button asChild variant="secondary" size="lg" className="whitespace-nowrap">
+              <Link to="/contact" className="flex items-center gap-2">
+                Contact Us <ChevronRight className="h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 };
