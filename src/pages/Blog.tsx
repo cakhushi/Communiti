@@ -13,7 +13,7 @@ const featuredPosts = [
   {
     id: 1,
     slug: "tax-saving-tips-freelancers",
-    title: "5 Tax-Saving Tips Every Freelancer Should Know",
+    title: "5 Essential Tax-Saving Tips for Freelancers in 2025",
     excerpt: "Learn how freelancers can optimize their tax strategy and save money with these essential tips.",
     category: "Tax Planning",
     author: "Priya Sharma",
@@ -23,9 +23,9 @@ const featuredPosts = [
   },
   {
     id: 2,
-    slug: "gst-compliance-guide-small-business",
+    slug: "gst-compliance-small-business",
     title: "The Complete GST Compliance Guide for Small Businesses",
-    excerpt: "Navigate the complexities of GST with this comprehensive guide tailored for small business owners.",
+    excerpt: "Staying GST-compliant is crucial for any small business in India. Learn essential requirements from registration to filing returns.",
     category: "GST",
     author: "Raj Patel",
     date: "April 28, 2024",
@@ -41,15 +41,15 @@ const latestPosts = [
     title: "New Tax Regime vs Old: Which One Should You Choose in 2024-25?",
     excerpt: "A detailed comparison of both tax regimes to help you make an informed decision for the current financial year.",
     category: "Tax Planning",
-    author: "Aditya Gupta",
+    author: "Harsh",
     date: "June 2, 2024",
     readTime: "8 min read",
-    image: "https://images.unsplash.com/photo-1565514020179-026b5cfd231c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
   },
   {
     id: 4,
     slug: "investment-strategies-beginners",
-    title: "Smart Investment Strategies for Beginners in 2024",
+    title: "Smart Investment Strategies for Beginners in 2025",
     excerpt: "Start your investment journey with these proven strategies designed for beginners in the current market.",
     category: "Investment",
     author: "Sanjay Mehta",
@@ -89,7 +89,7 @@ const resources = [
     category: "Tax Filing",
     format: "PDF",
     size: "1.2 MB",
-    downloadUrl: "#",
+    downloadUrl: "/downloads/itr-checklist-2024-25.txt",
   },
   {
     id: 2,
@@ -134,6 +134,25 @@ const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("articles");
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const handleDownload = (resource) => {
+    // Create a link element and trigger download
+    const link = document.createElement("a");
+    link.href = resource.downloadUrl;
+    link.download = resource.title.replace(/\s+/g, "-").toLowerCase() + getFileExtension(resource.format);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const getFileExtension = (format) => {
+    switch (format.toLowerCase()) {
+      case "pdf": return ".pdf";
+      case "excel": return ".xlsx";
+      case "word": case "document": return ".docx";
+      default: return "";
+    }
+  };
 
   const filteredPosts = [...featuredPosts, ...latestPosts].filter(
     (post) =>
@@ -326,7 +345,7 @@ const Blog = () => {
                         <div className="text-sm text-gray-500">
                           {resource.format} • {resource.size}
                         </div>
-                        <Button variant="outline" className="flex items-center gap-2">
+                        <Button variant="outline" className="flex items-center gap-2" onClick={() => handleDownload(resource)}>
                           <Download className="h-4 w-4" />
                           Download
                         </Button>

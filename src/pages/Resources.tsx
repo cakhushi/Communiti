@@ -14,7 +14,7 @@ const blogPosts = [
   {
     id: "1",
     slug: "tax-saving-tips-freelancers",
-    title: "7 Essential Tax-Saving Tips for Freelancers in 2024",
+    title: "5 Essential Tax-Saving Tips for Freelancers in 2025",
     excerpt: "Maximize your deductions and minimize your tax burden with these actionable strategies for freelancers and independent contractors.",
     coverImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     category: "Tax Planning",
@@ -27,8 +27,8 @@ const blogPosts = [
   {
     id: "2",
     slug: "gst-compliance-small-business",
-    title: "GST Compliance Made Simple: A Guide for Small Businesses",
-    excerpt: "Navigate GST regulations with confidence using our straightforward approach to compliance, filing, and credit optimization.",
+    title: "The Complete GST Compliance Guide for Small Businesses",
+    excerpt: "Staying GST-compliant is crucial for any small business in India. Learn essential requirements from registration to filing returns.",
     coverImage: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
     category: "GST",
     author: "Rajiv Mehta",
@@ -95,6 +95,17 @@ const blogPosts = [
 const resources = [
   {
     id: "1",
+    title: "Income Tax Return Checklist 2024-25",
+    description: "A comprehensive checklist of documents and information needed for filing your Income Tax Return correctly.",
+    type: "pdf",
+    downloadUrl: "/downloads/itr-checklist-2024-25.txt",
+    previewUrl: "/previews/itr-checklist-2024-25.jpg",
+    fileSize: "1.2 MB",
+    category: "Tax Planning",
+    downloads: 458
+  },
+  {
+    id: "2",
     title: "Income Tax Calculator - FY 2024-25",
     description: "A comprehensive Excel-based calculator to estimate your income tax liability under both old and new tax regimes.",
     type: "spreadsheet",
@@ -105,7 +116,7 @@ const resources = [
     downloads: 1254
   },
   {
-    id: "2",
+    id: "3",
     title: "GST Filing Checklist and Timeline",
     description: "Stay on top of your GST compliance with this detailed checklist and timeline of filing requirements.",
     type: "pdf",
@@ -116,7 +127,7 @@ const resources = [
     downloads: 875
   },
   {
-    id: "3",
+    id: "4",
     title: "Business Expense Tracker Template",
     description: "Track your business expenses efficiently with categorization for optimal tax deductions.",
     type: "spreadsheet",
@@ -127,7 +138,7 @@ const resources = [
     downloads: 1532
   },
   {
-    id: "4",
+    id: "5",
     title: "Investment Portfolio Management Template",
     description: "Track your investment performance across different asset classes and calculate returns with this easy-to-use template.",
     type: "spreadsheet",
@@ -138,7 +149,7 @@ const resources = [
     downloads: 967
   },
   {
-    id: "5",
+    id: "6",
     title: "Retirement Planning Guide & Calculator",
     description: "Comprehensive guide to planning your retirement with a built-in calculator to estimate your retirement corpus needs.",
     type: "guide",
@@ -149,7 +160,7 @@ const resources = [
     downloads: 742
   },
   {
-    id: "6",
+    id: "7",
     title: "Financial Goal Planning Worksheet",
     description: "Set SMART financial goals and track your progress toward achieving them with this interactive worksheet.",
     type: "document",
