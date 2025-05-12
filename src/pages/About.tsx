@@ -11,7 +11,7 @@ const About = () => {
           <div className="text-center max-w-3xl mx-auto animate-fade-up">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-shadow">About Us</h1>
             <p className="text-lg text-gray-200">
-              Meet the team of financial experts dedicated to your success. (UPDATED)
+              Meet the team of financial experts dedicated to your success. 
             </p>
           </div>
         </div>

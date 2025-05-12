@@ -1,14 +1,16 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import emailjs from 'emailjs-com';
+import { EMAILJS_CONFIG } from "@/lib/emailjs";
 
 const ContactForm = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailJSInitialized, setEmailJSInitialized] = useState(false);
   
   const [formData, setFormData] = useState({
     name: "",
@@ -16,7 +18,14 @@ const ContactForm = () => {
     phone: "",
     subject: "",
     message: "",
+    to_email: "communitiservices@gmail.com", // This is the recipient email address
   });
+
+  useEffect(() => {
+    // Initialize EmailJS
+    emailjs.init(EMAILJS_CONFIG.USER_ID);
+    setEmailJSInitialized(true);
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -30,26 +39,57 @@ const ContactForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!emailJSInitialized) {
+      toast({
+        title: "Error",
+        description: "Email service is not initialized. Please try again later.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Send the email using EmailJS
+      const response = await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        {
+          ...formData,
+          subject: `Contact Form: ${formData.subject}`,
+        },
+      );
+      
+      if (response.status === 200) {
+        toast({
+          title: "Message sent successfully!",
+          description: "We'll get back to you as soon as possible.",
+        });
+        
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+          to_email: "communitiservices@gmail.com",
+        });
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
       toast({
-        title: "Form submitted successfully!",
-        description: "We'll get back to you as soon as possible.",
+        title: "Failed to send message",
+        description: "There was an error sending your message. Please try again later.",
+        variant: "destructive",
       });
-      
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
-      
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   return (

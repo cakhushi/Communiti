@@ -71,3 +71,69 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+
+## Downloadable Resources
+
+This project includes several downloadable resources for users:
+
+1. Income Tax Return Checklist 2024-25 (PDF)
+2. GST Return Filing Calendar FY 2024-25 (PDF)
+3. Business Expense Tracker Template (Excel)
+4. Investment Tax Benefits Guide 2024 (PDF)
+
+### Regenerating Resource Files
+
+If you need to modify or regenerate these files, you can use the scripts in the `scripts` directory:
+
+```sh
+# Generate all resource files at once
+node scripts/generate-all-resources.js
+
+# Or generate individual files
+node scripts/generate-itr-checklist.js
+node scripts/generate-gst-calendar.js
+node scripts/generate-investment-guide.js
+node scripts/generate-expense-tracker.js
+
+# To validate the generated files
+node scripts/validate-pdfs.js
+```
+
+All generated files are saved in the `public/downloads` directory and are accessible via the website's resources section.
+
+## Setting Up the Contact Form with EmailJS
+
+The contact form is configured to send emails to communitiservices@gmail.com using EmailJS. To set this up:
+
+1. Create an account at [EmailJS](https://www.emailjs.com/) (they have a free tier)
+2. Set up an Email Service (like Gmail, Outlook, etc.)
+3. Create an Email Template with the following parameters:
+   - `name`: Sender's name
+   - `email`: Sender's email
+   - `phone`: Sender's phone
+   - `subject`: Email subject
+   - `message`: Email message content
+   - `to_email`: Recipient email (communitiservices@gmail.com)
+
+4. Update the EmailJS configuration in `src/lib/emailjs.ts` with your:
+   - Service ID
+   - Template ID
+   - User ID (public key)
+
+Example template format:
+```
+Hello,
+
+You have received a new message from {{name}} ({{email}}):
+
+Subject: {{subject}}
+
+Message:
+{{message}}
+
+Phone: {{phone}}
+
+This message was sent from your website contact form.
+```
+
+Once configured, all form submissions from the contact page will be sent directly to communitiservices@gmail.com.

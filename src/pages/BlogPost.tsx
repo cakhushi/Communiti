@@ -21,40 +21,72 @@ const blogPosts = [
     readTime: "8 min",
     tags: ["Freelancing", "Tax Deductions", "Self-Employment"],
     content: `
-      <h2>Introduction</h2>
-      <p>As a freelancer in India, understanding tax regulations and optimizing your tax strategy is crucial for financial success. This guide provides essential tax-saving tips specifically for freelancers in the 2025 tax year.</p>
-      
-      <h2>1. Choose the Right ITR Form (ITR-4 for 44ADA)</h2>
-      <p>If you're using the Presumptive Taxation Scheme, file ITR-4. If not, and your income exceeds ₹2.5 lakhs, go with ITR-3.</p>
-      <p>Under Section 44ADA, freelancers can declare 50% of their gross receipts as taxable income, significantly simplifying tax compliance while potentially reducing tax liability.</p>
-      
-      <h2>2. Declare All Income Sources</h2>
-      <p>Apart from freelancing, include bank interest, capital gains, or side gigs. Missing any may lead to a tax notice.</p>
-      <p>The Income Tax Department now cross-references income data through Form 26AS and AIS, making it essential to report all income sources accurately to avoid penalties.</p>
+      <div class="space-y-6">
+        <h2 class="text-2xl font-semibold text-[#2E2E2E] mb-4">Introduction</h2>
+        <p class="text-[#4F4F4F] leading-relaxed">As a freelancer, managing your taxes efficiently is crucial for maximizing your income. Here are five essential tips to help you save on taxes in 2025.</p>
 
-      <h2>3. File Before the Deadline (Usually July 31st)</h2>
-      <p>Avoid late filing fees under Section 234F. Filing early also gives time to revise, if needed.</p>
-      <p>Late filing can result in penalties ranging from ₹1,000 to ₹10,000 depending on your income level and delay duration. Early filing also allows time for corrections before deadlines.</p>
+        <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">1. Maintain Proper Business Records</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Keep detailed records of all your income and expenses. This includes:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>Invoices and receipts</li>
+            <li>Bank statements</li>
+            <li>Expense records</li>
+            <li>Business-related travel logs</li>
+          </ul>
+        </div>
 
-      <h2>4. Reconcile 26AS & AIS with Your Invoices</h2>
-      <p>Match your reported income with Form 26AS and Annual Information Statement (AIS)—they show what clients and banks have reported to the IT department.</p>
-      <p>These documents serve as a cross-verification mechanism, and any discrepancies could trigger tax notices. Regular reconciliation ensures your tax filing aligns with what the tax department already knows about your income.</p>
+        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">2. Claim All Eligible Deductions</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Take advantage of these common deductions:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>Home office expenses</li>
+            <li>Professional development costs</li>
+            <li>Equipment and software</li>
+            <li>Business insurance premiums</li>
+          </ul>
+        </div>
 
-      <h2>5. Pay Advance Tax Quarterly</h2>
-      <p>Freelancers must pay advance tax if total tax liability exceeds ₹10,000/year. Missing it can attract interest under Sections 234B & 234C.</p>
-      <p>The due dates for advance tax payments are:</p>
-      <ul>
-        <li>By June 15: 15% of estimated annual tax</li>
-        <li>By September 15: 45% of estimated annual tax</li>
-        <li>By December 15: 75% of estimated annual tax</li>
-        <li>By March 15: 100% of estimated annual tax</li>
-      </ul>
-      <p>Failure to pay advance tax on time can result in interest charges of 1% per month, significantly increasing your overall tax burden.</p>
+        <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">3. Plan Your Tax Payments</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Stay ahead of your tax obligations by:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>Setting aside 30% of income for taxes</li>
+            <li>Making quarterly advance tax payments</li>
+            <li>Using tax planning software</li>
+          </ul>
+        </div>
 
-      <h2>Conclusion</h2>
-      <p>Implementing these tax-saving strategies can significantly reduce your tax burden as a freelancer. However, tax laws are complex and frequently changing, so it's advisable to consult with a tax professional to create a personalized tax plan that addresses your specific situation.</p>
-      
-      <p>By being proactive about tax planning throughout the year rather than just at tax filing time, you can make more informed financial decisions and keep more of your hard-earned money.</p>
+        <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">4. Invest in Tax-Saving Instruments</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Consider these tax-saving options:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>Section 80C investments (up to ₹1.5 lakh)</li>
+            <li>Health insurance premiums (Section 80D)</li>
+            <li>NPS contributions (additional ₹50,000)</li>
+          </ul>
+        </div>
+
+        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">5. Stay Updated with Tax Laws</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Keep yourself informed about:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>New tax regulations</li>
+            <li>Changes in deduction limits</li>
+            <li>Filing deadlines</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg mt-8">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Pro Tips</h3>
+          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+            <li>Consider hiring a tax professional for complex situations</li>
+            <li>Use digital tools for expense tracking</li>
+            <li>Keep personal and business finances separate</li>
+            <li>Plan your income and expenses strategically</li>
+          </ul>
+        </div>
+      </div>
     `,
   },
   {
@@ -70,98 +102,92 @@ const blogPosts = [
     readTime: "10 min",
     tags: ["GST", "Small Business", "Compliance"],
     content: `
-      <h2>Introduction</h2>
-      <p>Staying GST-compliant is crucial for any small business in India. This comprehensive guide will help you navigate GST requirements and stay on track with your compliance obligations.</p>
-      
-      <h2>1. GST Registration</h2>
-      <p>Mandatory if your turnover exceeds ₹20 lakhs (₹10 lakhs for NE and hill states). Apply online via the GST portal.</p>
-      <p>Registration process includes:</p>
-      <ul>
-        <li>Submitting business details through Form GST REG-01</li>
-        <li>Verification through OTP or Digital Signature</li>
-        <li>Receiving your GSTIN (GST Identification Number)</li>
-        <li>Activating your GST portal account</li>
-      </ul>
+      <div class="space-y-6">
+        <h2 class="text-2xl font-semibold text-[#2E2E2E] mb-4">Introduction</h2>
+        <p class="text-[#4F4F4F] leading-relaxed">Staying GST-compliant is crucial for any small business in India. This comprehensive guide will help you navigate GST requirements and stay on track with your compliance obligations.</p>
 
-      <h2>2. Invoice Format</h2>
-      <p>Use GST-compliant invoices with GSTIN, HSN/SAC codes, tax breakup (CGST/SGST/IGST), and serial numbers.</p>
-      <p>A compliant invoice must include:</p>
-      <ul>
-        <li>Supplier's name, address, and GSTIN</li>
-        <li>Recipient's name, address, and GSTIN (if registered)</li>
-        <li>Sequential invoice number and date</li>
-        <li>Description of goods/services</li>
-        <li>HSN/SAC codes for each item</li>
-        <li>Quantity and value of goods/services</li>
-        <li>Tax rate and amount (CGST/SGST/IGST)</li>
-        <li>Total value including taxes</li>
-      </ul>
+        <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">1. GST Registration</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Mandatory if your turnover exceeds ₹20 lakhs (₹10 lakhs for NE and hill states). Apply online via the GST portal.</p>
+          <p class="text-[#4F4F4F] leading-relaxed mt-2">Registration process includes:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>Submitting business details through Form GST REG-01</li>
+            <li>Verification through OTP or Digital Signature</li>
+            <li>Receiving your GSTIN (GST Identification Number)</li>
+            <li>Activating your GST portal account</li>
+          </ul>
+        </div>
 
-      <h2>3. Monthly/Quarterly Returns</h2>
-      <p>There are several returns you need to file regularly:</p>
-      <ul>
-        <li><strong>GSTR-1:</strong> Outward sales (monthly/quarterly)</li>
-        <li><strong>GSTR-3B:</strong> Summary return with tax payment</li>
-        <li><strong>GSTR-9:</strong> Annual return (if turnover > ₹2 crore)</li>
-      </ul>
-      <p>Due dates for regular filers:</p>
-      <ul>
-        <li>GSTR-1: 11th of the next month (or quarter)</li>
-        <li>GSTR-3B: 20th of the next month (or quarter)</li>
-        <li>GSTR-9: 31st December of the next financial year</li>
-      </ul>
+        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">2. Invoice Format</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Use GST-compliant invoices with GSTIN, HSN/SAC codes, tax breakup (CGST/SGST/IGST), and serial numbers.</p>
+          <p class="text-[#4F4F4F] leading-relaxed mt-2">A compliant invoice must include:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>Supplier's name, address, and GSTIN</li>
+            <li>Recipient's name, address, and GSTIN (if registered)</li>
+            <li>Sequential invoice number and date</li>
+            <li>Description of goods/services</li>
+            <li>HSN/SAC codes for each item</li>
+            <li>Quantity and value of goods/services</li>
+            <li>Tax rate and amount (CGST/SGST/IGST)</li>
+            <li>Total value including taxes</li>
+          </ul>
+        </div>
 
-      <h2>4. Input Tax Credit (ITC)</h2>
-      <p>Claim ITC only on eligible purchases used for business. Match with GSTR-2B and ensure your vendors file returns on time.</p>
-      <p>To maximize ITC benefits:</p>
-      <ul>
-        <li>Verify that your supplier is GST-registered and has filed returns</li>
-        <li>Reconcile your purchase records with GSTR-2B before filing returns</li>
-        <li>Maintain proper documentation of all input tax claims</li>
-        <li>Ensure purchases are used for business purposes</li>
-        <li>Claim ITC within the specified timeline (currently before filing September return of next FY)</li>
-      </ul>
+        <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">3. Monthly/Quarterly Returns</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">There are several returns you need to file regularly:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li><strong>GSTR-1:</strong> Outward sales (monthly/quarterly)</li>
+            <li><strong>GSTR-3B:</strong> Summary return with tax payment</li>
+            <li><strong>GSTR-9:</strong> Annual return (if turnover > ₹2 crore)</li>
+          </ul>
+          <p class="text-[#4F4F4F] leading-relaxed mt-4">Due dates for regular filers:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>GSTR-1: 11th of the next month (or quarter)</li>
+            <li>GSTR-3B: 20th of the next month (or quarter)</li>
+            <li>GSTR-9: 31st December of the next financial year</li>
+          </ul>
+        </div>
 
-      <h2>5. Maintain Records</h2>
-      <p>Keep all bills, purchase registers, and return filings for at least 6 years. This helps during audits or notices.</p>
-      <p>Essential records to maintain:</p>
-      <ul>
-        <li>All purchase and sales invoices</li>
-        <li>Debit and credit notes</li>
-        <li>Electronic cash/credit ledgers</li>
-        <li>Input tax credit registers</li>
-        <li>Stock records for goods</li>
-        <li>Bank statements and payment proofs</li>
-      </ul>
+        <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">4. Input Tax Credit (ITC)</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Claim ITC only on eligible purchases used for business. Match with GSTR-2B and ensure your vendors file returns on time.</p>
+          <p class="text-[#4F4F4F] leading-relaxed mt-2">To maximize ITC benefits:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>Verify that your supplier is GST-registered and has filed returns</li>
+            <li>Reconcile your purchase records with GSTR-2B before filing returns</li>
+            <li>Maintain proper documentation of all input tax claims</li>
+            <li>Ensure purchases are used for business purposes</li>
+            <li>Claim ITC within the specified timeline (currently before filing September return of next FY)</li>
+          </ul>
+        </div>
 
-      <h2>6. Avoid Common Mistakes</h2>
-      <p>Mismatched invoices, late filings, and non-payment of GST can lead to heavy penalties and interest.</p>
-      <p>Common pitfalls to avoid:</p>
-      <ul>
-        <li>Missing filing deadlines (penalties start at ₹100 per day)</li>
-        <li>Incorrect classification of goods/services</li>
-        <li>Claiming ineligible ITC</li>
-        <li>Ignoring reconciliation of GSTR-1 and GSTR-3B</li>
-        <li>Not checking vendor compliance</li>
-        <li>Failing to issue proper tax invoices</li>
-      </ul>
+        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">5. Maintain Records</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Keep all bills, purchase registers, and return filings for at least 6 years. This helps during audits or notices.</p>
+          <p class="text-[#4F4F4F] leading-relaxed mt-2">Essential records to maintain:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>All purchase and sales invoices</li>
+            <li>Debit and credit notes</li>
+            <li>Electronic cash/credit ledgers</li>
+            <li>Input tax credit registers</li>
+            <li>Stock records for goods</li>
+            <li>Bank statements and payment proofs</li>
+          </ul>
+        </div>
 
-      <h2>7. Opt for Composition Scheme (if eligible)</h2>
-      <p>Turnover below ₹1.5 crore? Pay tax at a fixed rate and file quarterly returns with less compliance (no ITC allowed).</p>
-      <p>Benefits and considerations:</p>
-      <ul>
-        <li>Reduced compliance burden (quarterly returns instead of monthly)</li>
-        <li>Lower tax rates: 1% for traders, 5% for restaurants, 6% for other service providers</li>
-        <li>Simplified record-keeping requirements</li>
-        <li>Not eligible for businesses making inter-state supplies or online sales</li>
-        <li>Cannot collect GST from customers</li>
-        <li>Cannot claim input tax credit</li>
-      </ul>
-
-      <h2>Conclusion</h2>
-      <p>While GST compliance may seem complex, following these steps systematically can help your small business stay compliant. Consider using GST-compliant accounting software to automate many of these processes and reduce errors.</p>
-      
-      <p>Remember that GST laws are subject to change, so stay updated through official notifications from the GST Council and consult with a tax professional when needed.</p>
+        <div class="bg-gray-50 p-6 rounded-lg mt-8">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Pro Tips</h3>
+          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+            <li>Use GST-compliant accounting software</li>
+            <li>Set reminders for return filing dates</li>
+            <li>Regularly reconcile your books with GST returns</li>
+            <li>Keep digital copies of all documents</li>
+            <li>Stay updated with GST notifications and circulars</li>
+          </ul>
+        </div>
+      </div>
     `,
   },
   {
@@ -177,424 +203,501 @@ const blogPosts = [
     readTime: "8 min",
     tags: ["Tax Planning", "ITR Filing", "Tax Benefits"],
     content: `
-      <div style="line-height: 1.5; margin-top: 0; margin-bottom: 1rem;">
-        <p>Choosing between the Old and New Tax Regime? Here's a quick breakdown to help you decide which option is best for your financial situation in the 2024-25 assessment year.</p>
-        
-        <table style="width: 100%; border-collapse: collapse; border: 1px solid #e5e7eb; margin: 1rem 0;">
-          <thead>
-            <tr style="background-color: #f0f7ff;">
-              <th style="border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left;">🔍 Criteria</th>
-              <th style="border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left;">👵 Old Regime</th>
-              <th style="border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left;">🆕 New Regime (2024-25)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem; font-weight: 500;">Tax Rates</td>
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem;">Higher rates, but with deductions</td>
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem;">Lower rates, no major deductions</td>
-            </tr>
-            <tr style="background-color: #f9fafb;">
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem; font-weight: 500;">Deductions</td>
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem;">Yes – 80C, 80D, HRA, etc.</td>
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem;">Mostly not allowed</td>
-            </tr>
-            <tr>
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem; font-weight: 500;">Simplicity</td>
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem;">Complex with paperwork</td>
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem;">Simple, fewer calculations</td>
-            </tr>
-            <tr style="background-color: #f9fafb;">
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem; font-weight: 500;">Ideal for</td>
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem;">Those with high investments & deductions</td>
-              <td style="border: 1px solid #e5e7eb; padding: 0.5rem;">Those with low/no deductions</td>
-            </tr>
-          </tbody>
-        </table>
-        
-        <p style="font-weight: 500; margin-top: 0.5rem; margin-bottom: 0.5rem;">New Regime is now the default—but you can opt for the old one while filing.</p>
-        
-        <div style="background-color: #f0fdf4; border-left: 4px solid #22c55e; padding: 0.75rem; margin: 1rem 0;">
-          <p style="font-weight: 600; margin: 0 0 0.25rem 0;">✅ Quick Tip:</p>
-          <p style="margin: 0;">Choose Old Regime if your deductions exceed ₹3 lakh. Otherwise, New Regime might save you more!</p>
+      <div class="space-y-6">
+        <h2 class="text-2xl font-semibold text-[#2E2E2E] mb-4">Introduction</h2>
+        <p class="text-[#4F4F4F] leading-relaxed">Choosing between the Old and New Tax Regime? Here's a comprehensive comparison to help you make an informed decision for the 2024-25 assessment year.</p>
+
+        <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Key Differences</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse">
+              <thead>
+                <tr class="bg-blue-100">
+                  <th class="border border-blue-200 p-3 text-left text-[#2E2E2E]">Feature</th>
+                  <th class="border border-blue-200 p-3 text-left text-[#2E2E2E]">Old Regime</th>
+                  <th class="border border-blue-200 p-3 text-left text-[#2E2E2E]">New Regime</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="bg-white">
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">Tax Rates</td>
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">Higher rates with deductions</td>
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">Lower rates, no major deductions</td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">Deductions</td>
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">Available (80C, 80D, HRA, etc.)</td>
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">Mostly not allowed</td>
+                </tr>
+                <tr class="bg-white">
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">Simplicity</td>
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">Complex with paperwork</td>
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">Simple, fewer calculations</td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">Ideal for</td>
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">High investments & deductions</td>
+                  <td class="border border-blue-200 p-3 text-[#4F4F4F]">Low/no deductions</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        
-        <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.5rem 0;">Understanding the Old Tax Regime</h3>
-        <p style="margin: 0 0 0.5rem 0;">The old tax regime offers various deductions that can significantly reduce your taxable income:</p>
-        <ul style="list-style-type: disc; padding-left: 1.5rem; margin: 0 0 1rem 0;">
-          <li><strong>Section 80C:</strong> Investments up to ₹1.5 lakh (PPF, ELSS, etc.)</li>
-          <li><strong>Section 80D:</strong> Health insurance premiums</li>
-          <li><strong>HRA:</strong> Tax exemption for rent paid</li>
-          <li><strong>Home Loan Interest:</strong> Deduction up to ₹2 lakh</li>
-        </ul>
-        
-        <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.25rem 0 0.5rem 0;">Understanding the New Tax Regime</h3>
-        <p style="margin: 0 0 0.5rem 0;">The new regime offers lower tax rates but removes most deductions:</p>
-        <ul style="list-style-type: disc; padding-left: 1.5rem; margin: 0 0 1rem 0;">
-          <li>More slabs with reduced rates</li>
-          <li>No tax up to ₹3 lakh (vs ₹2.5 lakh in old regime)</li>
-          <li>Standard deduction of ₹50,000 for salaried individuals</li>
-          <li>No tax up to income of ₹7 lakh under Section 87A</li>
-        </ul>
-        
-        <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.25rem 0 0.5rem 0;">When to Choose Old Regime:</h3>
-        <ul style="list-style-type: disc; padding-left: 1.5rem; margin: 0 0 1rem 0;">
-          <li>You have significant investments under Section 80C</li>
-          <li>You pay rent and can claim HRA benefits</li>
-          <li>You have a home loan for a self-occupied property</li>
-          <li>Your total deductions exceed ₹3 lakh</li>
-        </ul>
-        
-        <h3 style="font-size: 1.25rem; font-weight: 600; margin: 1.25rem 0 0.5rem 0;">When to Choose New Regime:</h3>
-        <ul style="list-style-type: disc; padding-left: 1.5rem; margin: 0 0 1rem 0;">
-          <li>You have minimal investments or deductions</li>
-          <li>You prefer simplicity in tax calculation</li>
-          <li>You're in the early stages of your career with income below ₹7 lakh</li>
-        </ul>
-        
-        <div style="background-color: #fefce8; border-left: 4px solid #eab308; padding: 0.75rem; margin: 1rem 0;">
-          <p style="font-weight: 600; margin: 0 0 0.25rem 0;">⚠️ Note:</p>
-          <p style="margin: 0;">The choice between regimes can be made annually while filing your ITR. Business professionals have restrictions when switching back to the old regime.</p>
+
+        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Old Tax Regime Benefits</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">The old regime offers various deductions that can significantly reduce your taxable income:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li><strong>Section 80C:</strong> Investments up to ₹1.5 lakh (PPF, ELSS, etc.)</li>
+            <li><strong>Section 80D:</strong> Health insurance premiums</li>
+            <li><strong>HRA:</strong> Tax exemption for rent paid</li>
+            <li><strong>Home Loan Interest:</strong> Deduction up to ₹2 lakh</li>
+            <li><strong>LTA:</strong> Leave Travel Allowance</li>
+            <li><strong>Professional Tax:</strong> Up to ₹2,500</li>
+          </ul>
         </div>
-        
-        <p style="margin: 1rem 0 0 0;">Calculate your tax liability under both regimes before deciding. Consider consulting a tax professional for personalized advice.</p>
+
+        <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">New Tax Regime Benefits</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">The new regime offers simplified tax structure with lower rates:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>No tax up to ₹3 lakh (vs ₹2.5 lakh in old regime)</li>
+            <li>Standard deduction of ₹50,000 for salaried individuals</li>
+            <li>No tax up to income of ₹7 lakh under Section 87A</li>
+            <li>Simplified tax slabs with reduced rates</li>
+            <li>No need to maintain investment proofs</li>
+          </ul>
+        </div>
+
+        <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">When to Choose Old Regime</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Consider the old regime if:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>You have significant investments under Section 80C</li>
+            <li>You pay rent and can claim HRA benefits</li>
+            <li>You have a home loan for a self-occupied property</li>
+            <li>Your total deductions exceed ₹3 lakh</li>
+            <li>You have high medical insurance premiums</li>
+          </ul>
+        </div>
+
+        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">When to Choose New Regime</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">The new regime might be better if:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>You have minimal investments or deductions</li>
+            <li>You prefer simplicity in tax calculation</li>
+            <li>You're in the early stages of your career</li>
+            <li>Your income is below ₹7 lakh</li>
+            <li>You don't have many tax-saving investments</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg mt-8">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Pro Tips</h3>
+          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+            <li>Calculate your tax liability under both regimes before deciding</li>
+            <li>Consider your long-term financial goals</li>
+            <li>Review your decision annually</li>
+            <li>Consult a tax professional for personalized advice</li>
+            <li>Remember that the choice can be made while filing your ITR</li>
+          </ul>
+        </div>
       </div>
     `,
   },
   {
     id: "4",
-    slug: "investment-strategies-beginners",
+    slug: "smart-investment-strategies",
     title: "Smart Investment Strategies for Beginners in 2025",
-    excerpt: "Start your investment journey with these proven strategies designed for beginners in the current market.",
-    coverImage: "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "Investment",
-    author: "Sanjay Mehta",
-    authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
-    date: "May 25, 2024",
-    readTime: "9 min",
-    tags: ["Investment", "Beginners", "Financial Planning"],
+    excerpt: "Learn the fundamentals of investing and discover strategies to build wealth over time.",
+    coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    category: "Investments",
+    author: "Harsh",
+    authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
+    date: "June 3, 2024",
+    readTime: "10 min",
+    tags: ["Investments", "Wealth Building", "Financial Planning"],
     content: `
-      <h2 style="font-size: 1.75rem; color: #2563eb; margin-bottom: 1rem;">Introduction</h2>
-      <p style="font-size: 1rem; color: #4b5563; line-height: 1.6; margin-bottom: 1.5rem;">Just starting your investment journey? Follow these beginner-friendly tips to grow your wealth smartly:</p>
-      
-      <ol style="counter-reset: list-counter; list-style-type: none; padding-left: 0;">
-        <li style="counter-increment: list-counter; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.25rem; border-radius: 0.5rem; border-left: 4px solid #3b82f6;">
-          <h3 style="font-size: 1.2rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; display: flex; align-items: center;">
-            <span style="background: #3b82f6; color: white; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 0.875rem;">1</span>
-            Start Early, Even Small
-          </h3>
-          <p style="font-size: 0.95rem; color: #4b5563; margin-left: 2.5rem; margin-bottom: 0;">Time beats amount—begin with as little as ₹500/month.</p>
-        </li>
-        
-        <li style="counter-increment: list-counter; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.25rem; border-radius: 0.5rem; border-left: 4px solid #3b82f6;">
-          <h3 style="font-size: 1.2rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; display: flex; align-items: center;">
-            <span style="background: #3b82f6; color: white; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 0.875rem;">2</span>
-            Set Clear Financial Goals
-          </h3>
-          <p style="font-size: 0.95rem; color: #4b5563; margin-left: 2.5rem; margin-bottom: 0;">Invest with a purpose—retirement, home, emergency fund, etc.</p>
-        </li>
-        
-        <li style="counter-increment: list-counter; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.25rem; border-radius: 0.5rem; border-left: 4px solid #3b82f6;">
-          <h3 style="font-size: 1.2rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; display: flex; align-items: center;">
-            <span style="background: #3b82f6; color: white; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 0.875rem;">3</span>
-            Diversify Your Portfolio
-          </h3>
-          <p style="font-size: 0.95rem; color: #4b5563; margin-left: 2.5rem; margin-bottom: 0;">Don't put all your money in one basket. Mix mutual funds, stocks, FDs, and gold.</p>
-        </li>
-        
-        <li style="counter-increment: list-counter; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.25rem; border-radius: 0.5rem; border-left: 4px solid #3b82f6;">
-          <h3 style="font-size: 1.2rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; display: flex; align-items: center;">
-            <span style="background: #3b82f6; color: white; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 0.875rem;">4</span>
-            Use SIPs for Mutual Funds
-          </h3>
-          <p style="font-size: 0.95rem; color: #4b5563; margin-left: 2.5rem; margin-bottom: 0;">Systematic Investment Plans reduce risk and build discipline.</p>
-        </li>
-        
-        <li style="counter-increment: list-counter; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.25rem; border-radius: 0.5rem; border-left: 4px solid #3b82f6;">
-          <h3 style="font-size: 1.2rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; display: flex; align-items: center;">
-            <span style="background: #3b82f6; color: white; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 0.875rem;">5</span>
-            Don't Chase Quick Returns
-          </h3>
-          <p style="font-size: 0.95rem; color: #4b5563; margin-left: 2.5rem; margin-bottom: 0;">Avoid hype and stay away from "get rich quick" schemes.</p>
-        </li>
-        
-        <li style="counter-increment: list-counter; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.25rem; border-radius: 0.5rem; border-left: 4px solid #3b82f6;">
-          <h3 style="font-size: 1.2rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; display: flex; align-items: center;">
-            <span style="background: #3b82f6; color: white; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 0.875rem;">6</span>
-            Build an Emergency Fund First
-          </h3>
-          <p style="font-size: 0.95rem; color: #4b5563; margin-left: 2.5rem; margin-bottom: 0;">Save 3–6 months' expenses before aggressive investing.</p>
-        </li>
-        
-        <li style="counter-increment: list-counter; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.25rem; border-radius: 0.5rem; border-left: 4px solid #3b82f6;">
-          <h3 style="font-size: 1.2rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; display: flex; align-items: center;">
-            <span style="background: #3b82f6; color: white; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 0.875rem;">7</span>
-            Understand Risk vs. Return
-          </h3>
-          <p style="font-size: 0.95rem; color: #4b5563; margin-left: 2.5rem; margin-bottom: 0;">Higher returns often come with higher risk. Know your comfort level.</p>
-        </li>
-        
-        <li style="counter-increment: list-counter; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.25rem; border-radius: 0.5rem; border-left: 4px solid #3b82f6;">
-          <h3 style="font-size: 1.2rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; display: flex; align-items: center;">
-            <span style="background: #3b82f6; color: white; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 0.875rem;">8</span>
-            Stay Consistent & Patient
-          </h3>
-          <p style="font-size: 0.95rem; color: #4b5563; margin-left: 2.5rem; margin-bottom: 0;">Wealth grows over time—not overnight. Stay invested and review annually.</p>
-        </li>
-      </ol>
-      
-      <h2 style="font-size: 1.75rem; color: #2563eb; margin-top: 2rem; margin-bottom: 1rem;">Conclusion</h2>
-      <p style="font-size: 1rem; color: #4b5563; line-height: 1.6;">Investing doesn't need to be complicated. By following these straightforward strategies and remaining disciplined, even beginners can build substantial wealth over time. Remember that consistency is key, and it's never too early or too late to start your investment journey.</p>
+      <div class="space-y-6">
+        <h2 class="text-2xl font-semibold text-[#2E2E2E] mb-4">Introduction</h2>
+        <p class="text-[#4F4F4F] leading-relaxed">Starting your investment journey can be overwhelming, but with the right strategies and knowledge, you can build a strong financial foundation. This guide will help you understand the basics and make informed investment decisions.</p>
+
+        <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Investment Fundamentals</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Before diving into specific strategies, understand these key concepts:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li><strong>Risk vs. Return:</strong> Higher potential returns usually come with higher risk</li>
+            <li><strong>Diversification:</strong> Spread investments across different assets to reduce risk</li>
+            <li><strong>Time Horizon:</strong> Consider how long you can stay invested</li>
+            <li><strong>Liquidity:</strong> How quickly you can convert investments to cash</li>
+            <li><strong>Tax Efficiency:</strong> Consider tax implications of your investments</li>
+          </ul>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Beginner-Friendly Investment Options</h3>
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-semibold text-[#2E2E2E] mb-2">1. Mutual Funds</h4>
+              <p class="text-[#4F4F4F] leading-relaxed">Professional management and diversification:</p>
+              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+                <li>Start with index funds or balanced funds</li>
+                <li>Systematic Investment Plans (SIPs) for regular investing</li>
+                <li>Low minimum investment amounts</li>
+                <li>Professional fund management</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-semibold text-[#2E2E2E] mb-2">2. Public Provident Fund (PPF)</h4>
+              <p class="text-[#4F4F4F] leading-relaxed">Government-backed savings scheme:</p>
+              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+                <li>Tax-free returns</li>
+                <li>15-year lock-in period</li>
+                <li>Minimum investment of ₹500 per year</li>
+                <li>Eligible for tax deduction under Section 80C</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-semibold text-[#2E2E2E] mb-2">3. Equity-Linked Savings Scheme (ELSS)</h4>
+              <p class="text-[#4F4F4F] leading-relaxed">Tax-saving mutual funds:</p>
+              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+                <li>3-year lock-in period</li>
+                <li>Potential for higher returns</li>
+                <li>Tax deduction under Section 80C</li>
+                <li>Exposure to equity markets</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Investment Strategy Framework</h3>
+          <div class="space-y-4">
+            <div>
+              <h4 class="font-semibold text-[#2E2E2E] mb-2">1. Set Clear Goals</h4>
+              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+                <li>Define short-term and long-term objectives</li>
+                <li>Quantify your financial goals</li>
+                <li>Set realistic timelines</li>
+                <li>Prioritize your goals</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-semibold text-[#2E2E2E] mb-2">2. Create an Emergency Fund</h4>
+              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+                <li>Save 3-6 months of expenses</li>
+                <li>Keep in liquid instruments</li>
+                <li>Separate from investment portfolio</li>
+                <li>Regularly review and update</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-semibold text-[#2E2E2E] mb-2">3. Asset Allocation</h4>
+              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+                <li>Balance between equity and debt</li>
+                <li>Consider your risk tolerance</li>
+                <li>Review and rebalance periodically</li>
+                <li>Adjust based on market conditions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Common Investment Mistakes to Avoid</h3>
+          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+            <li>Investing without clear goals</li>
+            <li>Following market trends blindly</li>
+            <li>Not diversifying enough</li>
+            <li>Panic selling during market downturns</li>
+            <li>Ignoring inflation impact</li>
+            <li>Not reviewing portfolio regularly</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg mt-8">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Pro Tips</h3>
+          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+            <li>Start investing early to benefit from compound interest</li>
+            <li>Automate your investments through SIPs</li>
+            <li>Keep investment costs low</li>
+            <li>Stay invested for the long term</li>
+            <li>Regularly review and rebalance your portfolio</li>
+            <li>Consider consulting a financial advisor for personalized advice</li>
+          </ul>
+        </div>
+      </div>
     `,
   },
   {
     id: "5",
-    slug: "accounting-software-small-business",
+    slug: "top-accounting-software",
     title: "Top 7 Accounting Software for Small Businesses in India",
-    excerpt: "Find the perfect accounting solution for your small business with our comprehensive comparison.",
-    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "Accounting",
-    author: "Neha Verma",
-    authorImage: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
-    date: "May 18, 2024",
-    readTime: "6 min",
-    tags: ["Accounting", "Software", "Small Business", "GST"],
+    excerpt: "Compare the best accounting software solutions for Indian small businesses, including features, pricing, and GST compliance.",
+    coverImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    category: "Technology",
+    author: "Harsh",
+    authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
+    date: "June 4, 2024",
+    readTime: "12 min",
+    tags: ["Accounting Software", "GST", "Business Tools"],
     content: `
-      <div style="background-color: #f8fafc; padding: 2rem; border-radius: 0.75rem; margin-bottom: 2rem;">
-        <h2 style="font-size: 1.75rem; color: #2563eb; margin-top: 0; margin-bottom: 1rem;">Accounting Software for Small Businesses</h2>
-        <p style="font-size: 1.1rem; color: #4b5563; line-height: 1.6; margin-bottom: 1.5rem;">Managing your finances just got easier! Here are the top accounting tools small businesses in India swear by:</p>
+      <div class="space-y-6">
+        <h2 class="text-2xl font-semibold text-[#2E2E2E] mb-4">Introduction</h2>
+        <p class="text-[#4F4F4F] leading-relaxed">Choosing the right accounting software is crucial for small businesses in India. This comprehensive guide compares the top 7 accounting solutions, focusing on GST compliance, ease of use, and value for money.</p>
+
+        <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Key Features to Consider</h3>
+          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+            <li>GST compliance and filing capabilities</li>
+            <li>Invoice generation and management</li>
+            <li>Bank reconciliation features</li>
+            <li>Inventory management</li>
+            <li>Multi-user access</li>
+            <li>Mobile app availability</li>
+            <li>Customer support quality</li>
+            <li>Integration with other business tools</li>
+          </ul>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">1. TallyPrime</h3>
+          <div class="space-y-3">
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Traditional businesses requiring comprehensive accounting features</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Complete GST compliance</li>
+              <li>Advanced inventory management</li>
+              <li>Multi-company support</li>
+              <li>Customizable reports</li>
+            </ul>
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹18,000 per year</p>
+          </div>
+        </div>
+
+        <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">2. QuickBooks Online</h3>
+          <div class="space-y-3">
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Modern businesses seeking cloud-based solutions</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Cloud-based access</li>
+              <li>Automated bank feeds</li>
+              <li>Mobile app with receipt scanning</li>
+              <li>Multi-currency support</li>
+            </ul>
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹1,500 per month</p>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">3. Zoho Books</h3>
+          <div class="space-y-3">
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Small businesses wanting an integrated ecosystem</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Integration with Zoho suite</li>
+              <li>Automated workflows</li>
+              <li>Client portal</li>
+              <li>Time tracking</li>
+            </ul>
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹2,999 per year</p>
+          </div>
+        </div>
+
+        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">4. Busy Accounting</h3>
+          <div class="space-y-3">
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Manufacturing and trading businesses</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Advanced inventory features</li>
+              <li>Barcode support</li>
+              <li>Multi-location support</li>
+              <li>Manufacturing process tracking</li>
+            </ul>
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹15,000 per year</p>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">5. Marg ERP 9+</h3>
+          <div class="space-y-3">
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Retail and wholesale businesses</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Point of Sale features</li>
+              <li>Barcode management</li>
+              <li>Multi-branch support</li>
+              <li>GST compliance</li>
+            </ul>
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹12,000 per year</p>
+          </div>
+        </div>
+
+        <div class="bg-pink-50 p-6 rounded-lg border-l-4 border-pink-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">6. Vyapar</h3>
+          <div class="space-y-3">
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Small retail businesses and startups</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Simple interface</li>
+              <li>Mobile-first approach</li>
+              <li>Basic inventory management</li>
+              <li>GST billing</li>
+            </ul>
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹2,999 per year</p>
+          </div>
+        </div>
+
+        <div class="bg-teal-50 p-6 rounded-lg border-l-4 border-teal-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">7. ProfitBooks</h3>
+          <div class="space-y-3">
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Service-based businesses</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Cloud-based solution</li>
+              <li>Project management</li>
+              <li>Time tracking</li>
+              <li>Client portal</li>
+            </ul>
+            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹1,999 per year</p>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg mt-8">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Pro Tips</h3>
+          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+            <li>Start with a free trial before purchasing</li>
+            <li>Consider your business growth plans</li>
+            <li>Check for GST compliance features</li>
+            <li>Evaluate customer support quality</li>
+            <li>Consider data backup options</li>
+            <li>Look for mobile app availability</li>
+          </ul>
+        </div>
       </div>
-      
-      <div style="display: grid; gap: 1.5rem; margin-bottom: 2rem;">
-        <!-- TallyPrime -->
-        <div style="display: flex; background-color: #f0f7ff; border-radius: 0.75rem; overflow: hidden;">
-          <div style="background-color: #3b82f6; width: 0.5rem; flex-shrink: 0;"></div>
-          <div style="padding: 1.5rem;">
-            <h3 style="font-size: 1.25rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;">TallyPrime</h3>
-            <p style="font-size: 1rem; color: #4b5563; margin: 0;">Most popular and GST-ready. Great for traditional businesses.</p>
-          </div>
-        </div>
-        
-        <!-- Zoho Books -->
-        <div style="display: flex; background-color: #f0f7ff; border-radius: 0.75rem; overflow: hidden;">
-          <div style="background-color: #3b82f6; width: 0.5rem; flex-shrink: 0;"></div>
-          <div style="padding: 1.5rem;">
-            <h3 style="font-size: 1.25rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;">Zoho Books</h3>
-            <p style="font-size: 1rem; color: #4b5563; margin: 0;">Cloud-based, user-friendly, and ideal for startups & freelancers.</p>
-          </div>
-        </div>
-        
-        <!-- QuickBooks -->
-        <div style="display: flex; background-color: #f0f7ff; border-radius: 0.75rem; overflow: hidden;">
-          <div style="background-color: #3b82f6; width: 0.5rem; flex-shrink: 0;"></div>
-          <div style="padding: 1.5rem;">
-            <h3 style="font-size: 1.25rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;">QuickBooks (India)</h3>
-            <p style="font-size: 1rem; color: #4b5563; margin: 0;">Smart automation and easy reporting (limited availability in India after 2023, alternatives like Zoho gaining ground).</p>
-          </div>
-        </div>
-        
-        <!-- Vyapar -->
-        <div style="display: flex; background-color: #f0f7ff; border-radius: 0.75rem; overflow: hidden;">
-          <div style="background-color: #3b82f6; width: 0.5rem; flex-shrink: 0;"></div>
-          <div style="padding: 1.5rem;">
-            <h3 style="font-size: 1.25rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;">Vyapar</h3>
-            <p style="font-size: 1rem; color: #4b5563; margin: 0;">Simple, mobile-first accounting—perfect for traders and shopkeepers.</p>
-          </div>
-        </div>
-        
-        <!-- Busy Accounting -->
-        <div style="display: flex; background-color: #f0f7ff; border-radius: 0.75rem; overflow: hidden;">
-          <div style="background-color: #3b82f6; width: 0.5rem; flex-shrink: 0;"></div>
-          <div style="padding: 1.5rem;">
-            <h3 style="font-size: 1.25rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;">Busy Accounting</h3>
-            <p style="font-size: 1rem; color: #4b5563; margin: 0;">Good for inventory-heavy businesses. GST-compliant with strong reporting.</p>
-          </div>
-        </div>
-        
-        <!-- Marg ERP -->
-        <div style="display: flex; background-color: #f0f7ff; border-radius: 0.75rem; overflow: hidden;">
-          <div style="background-color: #3b82f6; width: 0.5rem; flex-shrink: 0;"></div>
-          <div style="padding: 1.5rem;">
-            <h3 style="font-size: 1.25rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;">Marg ERP</h3>
-            <p style="font-size: 1rem; color: #4b5563; margin: 0;">Best for retailers and pharma businesses with billing + inventory tools.</p>
-          </div>
-        </div>
-        
-        <!-- myBillBook -->
-        <div style="display: flex; background-color: #f0f7ff; border-radius: 0.75rem; overflow: hidden;">
-          <div style="background-color: #3b82f6; width: 0.5rem; flex-shrink: 0;"></div>
-          <div style="padding: 1.5rem;">
-            <h3 style="font-size: 1.25rem; color: #1e40af; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;">myBillBook</h3>
-            <p style="font-size: 1rem; color: #4b5563; margin: 0;">Easy invoicing, expense tracking, and reports—great for micro-businesses.</p>
-          </div>
-        </div>
-      </div>
-      
-      <div style="background-color: #f0fdf4; border-left: 4px solid #22c55e; padding: 1.5rem; border-radius: 0.5rem; margin-top: 2rem;">
-        <p style="display: flex; align-items: center; font-size: 1.1rem; color: #166534; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;">
-          <span style="background: #22c55e; color: white; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem;">💡</span>
-          Tip
-        </p>
-        <p style="font-size: 1rem; color: #166534; margin-left: 2.5rem; margin-bottom: 0; line-height: 1.6;">
-          Choose software based on your business size, GST needs, and tech comfort level.
-        </p>
-      </div>
-      
-      <h2 style="font-size: 1.75rem; color: #2563eb; margin-top: 2rem; margin-bottom: 1rem;">Making Your Decision</h2>
-      <p style="font-size: 1rem; color: #4b5563; line-height: 1.6; margin-bottom: 1rem;">
-        When selecting the right accounting software for your business, consider these factors:
-      </p>
-      <ul style="list-style-type: none; padding-left: 0; margin-bottom: 1.5rem;">
-        <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-          <span style="color: #3b82f6; margin-right: 0.75rem;">•</span> Your business size and growth projections
-        </li>
-        <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-          <span style="color: #3b82f6; margin-right: 0.75rem;">•</span> Specific features you need (inventory, payroll, etc.)
-        </li>
-        <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-          <span style="color: #3b82f6; margin-right: 0.75rem;">•</span> Budget and pricing model preferences
-        </li>
-        <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-          <span style="color: #3b82f6; margin-right: 0.75rem;">•</span> Ease of use and availability of support
-        </li>
-        <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0; display: flex; align-items: center;">
-          <span style="color: #3b82f6; margin-right: 0.75rem;">•</span> Integration with other business tools you use
-        </li>
-      </ul>
-      <p style="font-size: 1rem; color: #4b5563; line-height: 1.6;">
-        Many of these software options offer free trials, so don't hesitate to test a few before making your final decision. The right accounting software can save you time, reduce errors, and provide valuable insights to help grow your business.
-      </p>
-    `,
+    `
   },
   {
     id: "6",
-    slug: "digital-marketing-tips-accounting-firms",
-    title: "Digital Marketing Tips for Businesses in India",
-    excerpt: "Learn how businesses in India can leverage digital marketing to attract and retain clients.",
-    coverImage: "https://images.unsplash.com/photo-1557838923-2985c318be48?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    slug: "digital-marketing-accounting",
+    title: "Digital Marketing Tips for Accounting Firms",
+    excerpt: "Learn effective digital marketing strategies to grow your accounting practice and attract more clients.",
+    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     category: "Marketing",
-    author: "Vikram Singh",
-    authorImage: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
-    date: "May 10, 2024",
-    readTime: "5 min",
-    tags: ["Digital Marketing", "Social Media", "Business Growth"],
+    author: "Harsh",
+    authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
+    date: "June 5, 2024",
+    readTime: "8 min",
+    tags: ["Digital Marketing", "Business Growth", "Client Acquisition"],
     content: `
-      <div style="background-color: #f8fafc; padding: 2rem; border-radius: 0.75rem; margin-bottom: 2rem;">
-        <h2 style="font-size: 1.75rem; color: #2563eb; margin-top: 0; margin-bottom: 1rem;">Digital Marketing for Indian Businesses</h2>
-        <p style="font-size: 1.1rem; color: #4b5563; line-height: 1.6; margin-bottom: 1.5rem;">No matter what you sell, going digital is non-negotiable. Here are powerful tips tailored for different business types:</p>
+      <div class="space-y-6">
+        <h2 class="text-2xl font-semibold text-[#2E2E2E] mb-4">Introduction</h2>
+        <p class="text-[#4F4F4F] leading-relaxed">In today's digital age, accounting firms need a strong online presence to attract and retain clients. This guide provides practical digital marketing strategies tailored for accounting professionals.</p>
+
+        <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Website Optimization</h3>
+          <div class="space-y-4">
+            <p class="text-[#4F4F4F] leading-relaxed">Your website is your digital storefront. Make it count:</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Mobile-responsive design</li>
+              <li>Clear service descriptions</li>
+              <li>Easy contact forms</li>
+              <li>Client testimonials</li>
+              <li>Blog section for content marketing</li>
+              <li>SSL security certificate</li>
+              <li>Fast loading speed</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Content Marketing Strategy</h3>
+          <div class="space-y-4">
+            <p class="text-[#4F4F4F] leading-relaxed">Create valuable content that positions you as an expert:</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Regular blog posts on tax updates</li>
+              <li>Downloadable guides and checklists</li>
+              <li>Video content explaining complex topics</li>
+              <li>Case studies of successful client work</li>
+              <li>Newsletter with industry insights</li>
+              <li>Infographics on tax deadlines</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Social Media Presence</h3>
+          <div class="space-y-4">
+            <p class="text-[#4F4F4F] leading-relaxed">Build your professional network online:</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>LinkedIn for professional networking</li>
+              <li>Twitter for quick updates and engagement</li>
+              <li>Facebook for community building</li>
+              <li>Instagram for behind-the-scenes content</li>
+              <li>Regular posting schedule</li>
+              <li>Engage with industry discussions</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Local SEO Strategy</h3>
+          <div class="space-y-4">
+            <p class="text-[#4F4F4F] leading-relaxed">Improve your local visibility:</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Google Business Profile optimization</li>
+              <li>Local directory listings</li>
+              <li>Location-based keywords</li>
+              <li>Local backlinks</li>
+              <li>Client reviews management</li>
+              <li>Local content creation</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Email Marketing</h3>
+          <div class="space-y-4">
+            <p class="text-[#4F4F4F] leading-relaxed">Build and nurture client relationships:</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Regular newsletter updates</li>
+              <li>Tax deadline reminders</li>
+              <li>Service announcements</li>
+              <li>Client success stories</li>
+              <li>Personalized communication</li>
+              <li>Automated email sequences</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Paid Advertising</h3>
+          <div class="space-y-4">
+            <p class="text-[#4F4F4F] leading-relaxed">Strategic paid campaigns:</p>
+            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+              <li>Google Ads for local search</li>
+              <li>LinkedIn ads for B2B targeting</li>
+              <li>Facebook ads for brand awareness</li>
+              <li>Retargeting campaigns</li>
+              <li>Landing page optimization</li>
+              <li>Conversion tracking</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 p-6 rounded-lg mt-8">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Pro Tips</h3>
+          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
+            <li>Consistency is key in digital marketing</li>
+            <li>Track and measure your results</li>
+            <li>Focus on quality over quantity</li>
+            <li>Stay updated with industry trends</li>
+            <li>Engage with your audience regularly</li>
+            <li>Invest in professional photography</li>
+          </ul>
+        </div>
       </div>
-      
-      <!-- Retail Stores -->
-      <div style="background-color: #f0f7ff; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1.25rem; color: #1e40af; margin-top: 0; margin-bottom: 1rem; display: flex; align-items: center;">
-          <span style="background: #3b82f6; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 1.25rem;">🛍️</span>
-          Retail Stores
-        </h3>
-        <ul style="list-style-type: none; padding-left: 0; margin-top: 0; margin-bottom: 0;">
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-            <span style="color: #3b82f6; margin-right: 0.75rem; font-size: 1.25rem;">•</span> List your store on Google My Business
-          </li>
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-            <span style="color: #3b82f6; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Run local Facebook/Instagram ads with offers
-          </li>
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0; display: flex; align-items: center;">
-            <span style="color: #3b82f6; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Use WhatsApp to stay in touch with customers
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Food & Home-based Businesses -->
-      <div style="background-color: #fff7ed; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1.25rem; color: #9a3412; margin-top: 0; margin-bottom: 1rem; display: flex; align-items: center;">
-          <span style="background: #ea580c; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 1.25rem;">🍱</span>
-          Food & Home-based Businesses
-        </h3>
-        <ul style="list-style-type: none; padding-left: 0; margin-top: 0; margin-bottom: 0;">
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-            <span style="color: #ea580c; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Post regularly on Instagram with good photos
-          </li>
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-            <span style="color: #ea580c; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Use Zomato/Swiggy or your own delivery via WhatsApp
-          </li>
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0; display: flex; align-items: center;">
-            <span style="color: #ea580c; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Collect and showcase customer reviews
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Service-Based Businesses -->
-      <div style="background-color: #f0fdf4; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1.25rem; color: #166534; margin-top: 0; margin-bottom: 1rem; display: flex; align-items: center;">
-          <span style="background: #22c55e; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 1.25rem;">💼</span>
-          Service-Based Businesses (CA, Coaching, etc.)
-        </h3>
-        <ul style="list-style-type: none; padding-left: 0; margin-top: 0; margin-bottom: 0;">
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-            <span style="color: #22c55e; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Build a simple, clean website
-          </li>
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-            <span style="color: #22c55e; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Offer free tips via blogs or YouTube
-          </li>
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0; display: flex; align-items: center;">
-            <span style="color: #22c55e; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Run Google Ads for local visibility
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Handmade/Creative Sellers -->
-      <div style="background-color: #fdf2f8; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1.25rem; color: #9d174d; margin-top: 0; margin-bottom: 1rem; display: flex; align-items: center;">
-          <span style="background: #db2777; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 1.25rem;">🧵</span>
-          Handmade/Creative Sellers
-        </h3>
-        <ul style="list-style-type: none; padding-left: 0; margin-top: 0; margin-bottom: 0;">
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-            <span style="color: #db2777; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Sell on Instagram + marketplaces (Etsy, Amazon)
-          </li>
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-            <span style="color: #db2777; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Use Reels to show behind-the-scenes or process
-          </li>
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0; display: flex; align-items: center;">
-            <span style="color: #db2777; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Offer referral discounts to customers
-          </li>
-        </ul>
-      </div>
-      
-      <!-- B2B Businesses -->
-      <div style="background-color: #eff6ff; border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 1.5rem;">
-        <h3 style="font-size: 1.25rem; color: #1e3a8a; margin-top: 0; margin-bottom: 1rem; display: flex; align-items: center;">
-          <span style="background: #2563eb; color: white; width: 36px; height: 36px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem; font-size: 1.25rem;">🏢</span>
-          B2B Businesses
-        </h3>
-        <ul style="list-style-type: none; padding-left: 0; margin-top: 0; margin-bottom: 0;">
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-            <span style="color: #2563eb; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Focus on LinkedIn and email marketing
-          </li>
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0.75rem; display: flex; align-items: center;">
-            <span style="color: #2563eb; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Share case studies or client testimonials
-          </li>
-          <li style="font-size: 1rem; color: #4b5563; margin-bottom: 0; display: flex; align-items: center;">
-            <span style="color: #2563eb; margin-right: 0.75rem; font-size: 1.25rem;">•</span> Use SEO to rank for industry-specific keywords
-          </li>
-        </ul>
-      </div>
-      
-      <!-- Pro Tip -->
-      <div style="background-color: #f9fafb; border-left: 4px solid #f59e0b; padding: 1.5rem; border-radius: 0.5rem; margin-top: 2rem;">
-        <p style="display: flex; align-items: center; font-size: 1.1rem; color: #b45309; margin-top: 0; margin-bottom: 0.5rem; font-weight: 600;">
-          <span style="background: #f59e0b; color: white; width: 26px; height: 26px; border-radius: 50%; display: inline-flex; justify-content: center; align-items: center; margin-right: 0.75rem;">💡</span>
-          Pro Tip
-        </p>
-        <p style="font-size: 1rem; color: #92400e; margin-left: 2.5rem; margin-bottom: 0; line-height: 1.6;">
-          Don't try everything—pick 2–3 platforms your audience uses and do them well.
-        </p>
-      </div>
-      
-      <h2 style="font-size: 1.75rem; color: #2563eb; margin-top: 2rem; margin-bottom: 1rem;">Getting Started</h2>
-      <p style="font-size: 1rem; color: #4b5563; line-height: 1.6;">
-        Digital marketing doesn't have to be overwhelming. Start by identifying your target customer and choose one platform to master first. Consistency is more important than perfection when it comes to digital marketing. Track what works, learn from what doesn't, and gradually expand your digital presence as your business grows.
-      </p>
-    `,
+    `
   },
 ];
 
@@ -608,6 +711,11 @@ const getRelatedPosts = (currentPost: any) => {
     )
     .slice(0, 3);
 };
+
+// Add Google Fonts
+const googleFonts = `
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+`;
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -645,13 +753,14 @@ const BlogPost = () => {
       <Helmet>
         <title>{post.title} | Savvy Accountant Connect</title>
         <meta name="description" content={post.excerpt} />
+        <style>{googleFonts}</style>
       </Helmet>
 
       <div className="container mx-auto py-12 px-4 sm:px-6">
         {/* Back Button */}
         <Button 
           variant="outline" 
-          className="mb-8" 
+          className="mb-8 font-['Poppins']" 
           asChild
         >
           <Link to="/resources">
@@ -671,10 +780,10 @@ const BlogPost = () => {
             <div className="bg-white rounded-xl p-8 shadow-sm">
               {/* Post Meta */}
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
-                <span className="text-sm font-medium bg-blue-100 text-blue-800 px-3 py-1 rounded-full inline-block mb-3 sm:mb-0">
+                <span className="text-sm font-medium bg-blue-100 text-blue-800 px-3 py-1 rounded-full inline-block mb-3 sm:mb-0 font-['Poppins']">
                   {post.category}
                 </span>
-                <div className="flex items-center gap-4 text-gray-500 text-sm">
+                <div className="flex items-center gap-4 text-gray-500 text-sm font-['Poppins']">
                   <div className="flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
                     <span>{post.date}</span>
@@ -687,7 +796,7 @@ const BlogPost = () => {
               </div>
 
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+              <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 font-['Poppins'] text-[#2E2E2E]">
                 {post.title}
               </h1>
 
@@ -699,14 +808,31 @@ const BlogPost = () => {
                   className="w-10 h-10 rounded-full object-cover"
                 />
                 <div>
-                  <p className="font-medium">{post.author}</p>
-                  <p className="text-sm text-gray-500">Financial Advisor</p>
+                  <p className="font-medium font-['Poppins'] text-[#2E2E2E]">{post.author}</p>
+                  <p className="text-sm text-[#4F4F4F] font-['Poppins']">Financial Advisor</p>
                 </div>
               </div>
 
               {/* Content */}
               <div 
-                className="prose prose-lg max-w-none"
+                className="prose prose-lg max-w-none font-['Poppins']"
+                style={{
+                  '--tw-prose-body': '#4F4F4F',
+                  '--tw-prose-headings': '#2E2E2E',
+                  '--tw-prose-links': '#1A73E8',
+                  '--tw-prose-bold': '#2E2E2E',
+                  '--tw-prose-counters': '#4F4F4F',
+                  '--tw-prose-bullets': '#4F4F4F',
+                  '--tw-prose-hr': '#E5E7EB',
+                  '--tw-prose-quotes': '#2E2E2E',
+                  '--tw-prose-quote-borders': '#E5E7EB',
+                  '--tw-prose-captions': '#4F4F4F',
+                  '--tw-prose-code': '#2E2E2E',
+                  '--tw-prose-pre-code': '#E5E7EB',
+                  '--tw-prose-pre-bg': '#1F2937',
+                  '--tw-prose-th-borders': '#E5E7EB',
+                  '--tw-prose-td-borders': '#E5E7EB',
+                } as React.CSSProperties}
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
 
@@ -718,7 +844,7 @@ const BlogPost = () => {
                     <Link 
                       key={index} 
                       to={`/resources?tag=${tag}`}
-                      className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-gray-200 transition-colors"
+                      className="text-sm bg-gray-100 text-gray-700 px-3 py-1 rounded-full hover:bg-gray-200 transition-colors font-['Poppins']"
                     >
                       {tag}
                     </Link>
@@ -728,7 +854,7 @@ const BlogPost = () => {
 
               {/* Share */}
               <div className="mt-8 flex flex-col sm:flex-row gap-4 items-center justify-between">
-                <p className="font-medium">Share this article:</p>
+                <p className="font-medium font-['Poppins'] text-[#2E2E2E]">Share this article:</p>
                 <div className="flex gap-3">
                   <Button size="sm" variant="outline" className="rounded-full w-10 h-10 p-0">
                     <Share2 className="h-4 w-4" />
@@ -742,7 +868,7 @@ const BlogPost = () => {
           <div className="lg:col-span-4">
             {/* Author Box */}
             <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
-              <h3 className="text-lg font-semibold mb-4">About the Author</h3>
+              <h3 className="text-lg font-semibold mb-4 font-['Poppins'] text-[#2E2E2E]">About the Author</h3>
               <div className="flex gap-4">
                 <img 
                   src={post.authorImage} 
@@ -750,9 +876,9 @@ const BlogPost = () => {
                   className="w-16 h-16 rounded-full object-cover"
                 />
                 <div>
-                  <p className="font-medium text-lg">{post.author}</p>
-                  <p className="text-gray-600 mb-3">Financial Advisor</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="font-medium text-lg font-['Poppins'] text-[#2E2E2E]">{post.author}</p>
+                  <p className="text-[#4F4F4F] mb-3 font-['Poppins']">Financial Advisor</p>
+                  <p className="text-sm text-[#4F4F4F] font-['Poppins']">
                     Specialized in tax planning and financial advisory services with over 10 years of experience.
                   </p>
                 </div>
@@ -762,7 +888,7 @@ const BlogPost = () => {
             {/* Related Posts */}
             {relatedPosts.length > 0 && (
               <div className="bg-white rounded-xl p-6 shadow-sm mb-6">
-                <h3 className="text-lg font-semibold mb-4">Related Articles</h3>
+                <h3 className="text-lg font-semibold mb-4 font-['Poppins'] text-[#2E2E2E]">Related Articles</h3>
                 <div className="space-y-4">
                   {relatedPosts.map((relatedPost) => (
                     <Link 
@@ -776,10 +902,10 @@ const BlogPost = () => {
                           style={{ backgroundImage: `url(${relatedPost.coverImage})` }}
                         />
                         <div>
-                          <h4 className="font-medium text-sm line-clamp-2 group-hover:text-blue-600 transition-colors">
+                          <h4 className="font-medium text-sm line-clamp-2 group-hover:text-[#1A73E8] transition-colors font-['Poppins'] text-[#2E2E2E]">
                             {relatedPost.title}
                           </h4>
-                          <div className="flex items-center gap-1 mt-1 text-xs text-gray-500">
+                          <div className="flex items-center gap-1 mt-1 text-xs text-[#4F4F4F] font-['Poppins']">
                             <Calendar className="h-3 w-3" />
                             <span>{relatedPost.date}</span>
                           </div>
@@ -790,7 +916,7 @@ const BlogPost = () => {
                 </div>
                 <Button 
                   variant="outline" 
-                  className="w-full mt-4"
+                  className="w-full mt-4 font-['Poppins']"
                   asChild
                 >
                   <Link to="/resources">

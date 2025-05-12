@@ -98,7 +98,7 @@ const resources = [
     title: "Income Tax Return Checklist 2024-25",
     description: "A comprehensive checklist of documents and information needed for filing your Income Tax Return correctly.",
     type: "pdf",
-    downloadUrl: "/downloads/itr-checklist-2024-25.txt",
+    downloadUrl: "/downloads/itr-checklist-2024-25.pdf",
     previewUrl: "/previews/itr-checklist-2024-25.jpg",
     fileSize: "1.2 MB",
     category: "Tax Planning",
@@ -106,6 +106,39 @@ const resources = [
   },
   {
     id: "2",
+    title: "GST Return Filing Calendar FY 2024-25",
+    description: "Monthly and quarterly due dates for all GST returns in the financial year 2024-25.",
+    type: "pdf",
+    downloadUrl: "/downloads/GST-Calendar-FY24-25.pdf",
+    previewUrl: "/previews/gst-calendar-2024.jpg",
+    fileSize: "0.9 MB",
+    category: "GST",
+    downloads: 875
+  },
+  {
+    id: "3",
+    title: "Business Expense Tracker Template",
+    description: "Excel template to track and categorize business expenses for optimal tax deductions.",
+    type: "spreadsheet",
+    downloadUrl: "/downloads/Business-Expense-Tracker.xlsx",
+    previewUrl: "/previews/business-expense-tracker.jpg",
+    fileSize: "320 KB",
+    category: "Business Finance",
+    downloads: 1532
+  },
+  {
+    id: "4",
+    title: "Investment Tax Benefits Guide 2024",
+    description: "Detailed guide on tax benefits for various investment options in India.",
+    type: "pdf",
+    downloadUrl: "/downloads/Investment-Tax-Benefits-2024.pdf",
+    previewUrl: "/previews/investment-tax-benefits.jpg",
+    fileSize: "1.8 MB",
+    category: "Investments",
+    downloads: 967
+  },
+  {
+    id: "5",
     title: "Income Tax Calculator - FY 2024-25",
     description: "A comprehensive Excel-based calculator to estimate your income tax liability under both old and new tax regimes.",
     type: "spreadsheet",
@@ -116,7 +149,7 @@ const resources = [
     downloads: 1254
   },
   {
-    id: "3",
+    id: "6",
     title: "GST Filing Checklist and Timeline",
     description: "Stay on top of your GST compliance with this detailed checklist and timeline of filing requirements.",
     type: "pdf",
@@ -127,18 +160,7 @@ const resources = [
     downloads: 875
   },
   {
-    id: "4",
-    title: "Business Expense Tracker Template",
-    description: "Track your business expenses efficiently with categorization for optimal tax deductions.",
-    type: "spreadsheet",
-    downloadUrl: "/downloads/business-expense-tracker.xlsx",
-    previewUrl: "/previews/business-expense-tracker.jpg",
-    fileSize: "320 KB",
-    category: "Business Finance",
-    downloads: 1532
-  },
-  {
-    id: "5",
+    id: "7",
     title: "Investment Portfolio Management Template",
     description: "Track your investment performance across different asset classes and calculate returns with this easy-to-use template.",
     type: "spreadsheet",
@@ -149,7 +171,7 @@ const resources = [
     downloads: 967
   },
   {
-    id: "6",
+    id: "8",
     title: "Retirement Planning Guide & Calculator",
     description: "Comprehensive guide to planning your retirement with a built-in calculator to estimate your retirement corpus needs.",
     type: "guide",
@@ -160,7 +182,7 @@ const resources = [
     downloads: 742
   },
   {
-    id: "7",
+    id: "9",
     title: "Financial Goal Planning Worksheet",
     description: "Set SMART financial goals and track your progress toward achieving them with this interactive worksheet.",
     type: "document",

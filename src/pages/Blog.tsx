@@ -8,6 +8,11 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Download, FileText, Calendar, Clock, ChevronRight, Search } from "lucide-react";
 
+// Add Google Fonts
+const googleFonts = `
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+`;
+
 // Blog data
 const featuredPosts = [
   {
@@ -89,7 +94,7 @@ const resources = [
     category: "Tax Filing",
     format: "PDF",
     size: "1.2 MB",
-    downloadUrl: "/downloads/itr-checklist-2024-25.txt",
+    downloadUrl: "/downloads/itr-checklist-2024-25.pdf",
   },
   {
     id: 2,
@@ -98,7 +103,7 @@ const resources = [
     category: "GST",
     format: "PDF",
     size: "0.9 MB",
-    downloadUrl: "#",
+    downloadUrl: "/downloads/GST-Calendar-FY24-25.pdf",
   },
   {
     id: 3,
@@ -107,7 +112,7 @@ const resources = [
     category: "Accounting",
     format: "Excel",
     size: "2.4 MB",
-    downloadUrl: "#",
+    downloadUrl: "/downloads/Business-Expense-Tracker.xlsx",
   },
   {
     id: 4,
@@ -116,7 +121,7 @@ const resources = [
     category: "Investment",
     format: "PDF",
     size: "1.8 MB",
-    downloadUrl: "#",
+    downloadUrl: "/downloads/Investment-Tax-Benefits-2024.pdf",
   },
 ];
 
@@ -178,23 +183,24 @@ const Blog = () => {
           name="description"
           content="Explore our collection of financial tips, guides, and downloadable resources to help you navigate tax planning, accounting, and business finances."
         />
+        <style>{googleFonts}</style>
       </Helmet>
 
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 py-20">
-        <div className="container-custom">
+        <div className="container-custom px-4 md:px-10">
           <div className="flex flex-col items-center text-center text-white">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 font-['Poppins']">
               Financial Resources & Insights
             </h1>
-            <p className="text-lg md:text-xl mb-8 max-w-3xl">
+            <p className="text-lg md:text-xl mb-8 max-w-3xl font-['Poppins']">
               Explore our collection of expert articles, guides, and tools designed to help you navigate your financial journey with confidence
             </p>
             <div className="w-full max-w-md relative">
               <Input
                 type="text"
                 placeholder="Search articles, resources..."
-                className="w-full pl-10 pr-4 py-3 rounded-lg text-gray-800"
+                className="w-full pl-10 pr-4 py-3 rounded-lg text-gray-800 font-['Poppins']"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
@@ -204,8 +210,8 @@ const Blog = () => {
         </div>
       </section>
 
-      <section className="py-16 bg-gray-50">
-        <div className="container-custom">
+      <section className="py-16 bg-[#FAFAFA]">
+        <div className="container-custom px-4 md:px-10">
           {/* Category Filter */}
           <div className="mb-10 flex flex-wrap gap-2 justify-center">
             {categories.map((category) => (
@@ -213,7 +219,7 @@ const Blog = () => {
                 key={category}
                 variant={selectedCategory === category ? "default" : "outline"}
                 onClick={() => setSelectedCategory(category)}
-                className="rounded-full"
+                className="rounded-full font-['Poppins']"
               >
                 {category}
               </Button>
@@ -222,31 +228,31 @@ const Blog = () => {
 
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-12">
-              <TabsTrigger value="articles">Articles & Guides</TabsTrigger>
-              <TabsTrigger value="resources">Downloadable Resources</TabsTrigger>
+              <TabsTrigger value="articles" className="font-['Poppins']">Articles & Guides</TabsTrigger>
+              <TabsTrigger value="resources" className="font-['Poppins']">Downloadable Resources</TabsTrigger>
             </TabsList>
 
             <TabsContent value="articles">
               {/* Featured Posts */}
               {searchTerm === "" && selectedCategory === "All" && (
                 <div className="mb-16">
-                  <h2 className="text-3xl font-bold mb-10 text-center">Featured Articles</h2>
+                  <h2 className="text-3xl font-bold mb-10 text-center font-['Poppins'] text-[#2E2E2E]">Featured Articles</h2>
                   <div className="grid md:grid-cols-2 gap-8">
                     {featuredPosts.map((post) => (
-                      <Card key={post.id} className="overflow-hidden transition-all hover:shadow-lg">
+                      <Card key={post.id} className="overflow-hidden transition-all hover:shadow-lg bg-white">
                         <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
                         <CardHeader>
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full">{post.category}</span>
+                            <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-['Poppins']">{post.category}</span>
                           </div>
-                          <CardTitle className="text-xl">
-                            <Link to={`/blog/${post.slug}`} className="hover:text-blue-600 transition-colors">
+                          <CardTitle className="text-xl font-['Poppins'] text-[#2E2E2E]">
+                            <Link to={`/blog/${post.slug}`} className="hover:text-[#1A73E8] transition-colors hover:underline">
                               {post.title}
                             </Link>
                           </CardTitle>
-                          <CardDescription>{post.excerpt}</CardDescription>
+                          <CardDescription className="font-['Poppins'] text-[#4F4F4F] leading-relaxed">{post.excerpt}</CardDescription>
                         </CardHeader>
-                        <CardFooter className="flex justify-between text-sm text-gray-500">
+                        <CardFooter className="flex justify-between text-sm text-[#4F4F4F] font-['Poppins']">
                           <div className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />
                             <span>{post.date}</span>
@@ -264,7 +270,7 @@ const Blog = () => {
 
               {/* Latest Articles */}
               <div>
-                <h2 className="text-3xl font-bold mb-10 text-center">
+                <h2 className="text-3xl font-bold mb-10 text-center font-['Poppins'] text-[#2E2E2E]">
                   {filteredPosts.length > 0
                     ? searchTerm
                       ? "Search Results"
@@ -276,20 +282,20 @@ const Blog = () => {
                 {filteredPosts.length > 0 ? (
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {filteredPosts.map((post) => (
-                      <Card key={post.id} className="overflow-hidden transition-all hover:shadow-lg">
+                      <Card key={post.id} className="overflow-hidden transition-all hover:shadow-lg bg-white">
                         <img src={post.image} alt={post.title} className="w-full h-48 object-cover" />
                         <CardHeader>
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full">{post.category}</span>
+                            <span className="text-sm bg-blue-100 text-blue-700 px-3 py-1 rounded-full font-['Poppins']">{post.category}</span>
                           </div>
-                          <CardTitle className="text-xl">
-                            <Link to={`/blog/${post.slug}`} className="hover:text-blue-600 transition-colors">
+                          <CardTitle className="text-xl font-['Poppins'] text-[#2E2E2E]">
+                            <Link to={`/blog/${post.slug}`} className="hover:text-[#1A73E8] transition-colors hover:underline">
                               {post.title}
                             </Link>
                           </CardTitle>
-                          <CardDescription>{post.excerpt}</CardDescription>
+                          <CardDescription className="font-['Poppins'] text-[#4F4F4F] leading-relaxed">{post.excerpt}</CardDescription>
                         </CardHeader>
-                        <CardFooter className="flex justify-between text-sm text-gray-500">
+                        <CardFooter className="flex justify-between text-sm text-[#4F4F4F] font-['Poppins']">
                           <div className="flex items-center gap-1">
                             <Calendar className="h-4 w-4" />
                             <span>{post.date}</span>
@@ -304,8 +310,8 @@ const Blog = () => {
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <p className="text-lg text-gray-500 mb-4">No articles found matching your search criteria.</p>
-                    <Button onClick={() => {setSearchTerm(""); setSelectedCategory("All");}}>
+                    <p className="text-lg text-[#4F4F4F] mb-4 font-['Poppins']">No articles found matching your search criteria.</p>
+                    <Button onClick={() => {setSearchTerm(""); setSelectedCategory("All");}} className="font-['Poppins']">
                       View All Articles
                     </Button>
                   </div>
@@ -314,7 +320,7 @@ const Blog = () => {
             </TabsContent>
 
             <TabsContent value="resources">
-              <h2 className="text-3xl font-bold mb-10 text-center">
+              <h2 className="text-3xl font-bold mb-10 text-center font-['Poppins'] text-[#2E2E2E]">
                 {filteredResources.length > 0
                   ? searchTerm
                     ? "Search Results"
@@ -326,15 +332,15 @@ const Blog = () => {
               {filteredResources.length > 0 ? (
                 <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
                   {filteredResources.map((resource) => (
-                    <Card key={resource.id} className="transition-all hover:shadow-lg">
+                    <Card key={resource.id} className="transition-all hover:shadow-lg bg-white">
                       <CardHeader>
                         <div className="flex justify-between items-start">
                           <div>
-                            <span className="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded-full mb-3 inline-block">
+                            <span className="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded-full mb-3 inline-block font-['Poppins']">
                               {resource.category}
                             </span>
-                            <CardTitle className="text-xl mb-2">{resource.title}</CardTitle>
-                            <CardDescription>{resource.description}</CardDescription>
+                            <CardTitle className="text-xl mb-2 font-['Poppins'] text-[#2E2E2E]">{resource.title}</CardTitle>
+                            <CardDescription className="font-['Poppins'] text-[#4F4F4F] leading-relaxed">{resource.description}</CardDescription>
                           </div>
                           <div className="bg-gray-100 p-3 rounded-full">
                             <FileText className="h-6 w-6 text-blue-600" />
@@ -342,10 +348,10 @@ const Blog = () => {
                         </div>
                       </CardHeader>
                       <CardFooter className="flex justify-between">
-                        <div className="text-sm text-gray-500">
+                        <div className="text-sm text-[#4F4F4F] font-['Poppins']">
                           {resource.format} • {resource.size}
                         </div>
-                        <Button variant="outline" className="flex items-center gap-2" onClick={() => handleDownload(resource)}>
+                        <Button variant="outline" className="flex items-center gap-2 font-['Poppins']" onClick={() => handleDownload(resource)}>
                           <Download className="h-4 w-4" />
                           Download
                         </Button>
@@ -355,8 +361,8 @@ const Blog = () => {
                 </div>
               ) : (
                 <div className="text-center py-12">
-                  <p className="text-lg text-gray-500 mb-4">No resources found matching your search criteria.</p>
-                  <Button onClick={() => {setSearchTerm(""); setSelectedCategory("All");}}>
+                  <p className="text-lg text-[#4F4F4F] mb-4 font-['Poppins']">No resources found matching your search criteria.</p>
+                  <Button onClick={() => {setSearchTerm(""); setSelectedCategory("All");}} className="font-['Poppins']">
                     View All Resources
                   </Button>
                 </div>
@@ -368,15 +374,15 @@ const Blog = () => {
 
       {/* Newsletter Section */}
       <section className="py-20 bg-blue-50">
-        <div className="container-custom">
+        <div className="container-custom px-4 md:px-10">
           <div className="bg-white p-8 md:p-12 rounded-2xl shadow-md max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">Subscribe to Our Newsletter</h2>
-            <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold mb-4 font-['Poppins'] text-[#2E2E2E]">Subscribe to Our Newsletter</h2>
+            <p className="text-[#4F4F4F] mb-8 max-w-2xl mx-auto font-['Poppins'] leading-relaxed">
               Get the latest financial tips, tax updates, and accounting insights delivered straight to your inbox
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <Input type="email" placeholder="Your email address" className="flex-grow" />
-              <Button>Subscribe</Button>
+              <Input type="email" placeholder="Your email address" className="flex-grow font-['Poppins']" />
+              <Button className="font-['Poppins']">Subscribe</Button>
             </div>
           </div>
         </div>
@@ -384,15 +390,15 @@ const Blog = () => {
 
       {/* CTA Section */}
       <section className="py-16">
-        <div className="container-custom">
+        <div className="container-custom px-4 md:px-10">
           <div className="flex flex-col md:flex-row md:items-center justify-between bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600 p-8 md:p-12 rounded-2xl text-white">
             <div className="md:w-2/3 mb-6 md:mb-0">
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">Need Personalized Financial Advice?</h2>
-              <p className="text-white/90">
+              <h2 className="text-2xl md:text-3xl font-bold mb-4 font-['Poppins']">Need Personalized Financial Advice?</h2>
+              <p className="text-white/90 font-['Poppins'] leading-relaxed">
                 Our team of expert financial advisors is ready to help you navigate your specific financial challenges
               </p>
             </div>
-            <Button asChild variant="secondary" size="lg" className="whitespace-nowrap">
+            <Button asChild variant="secondary" size="lg" className="whitespace-nowrap font-['Poppins']">
               <Link to="/contact" className="flex items-center gap-2">
                 Contact Us <ChevronRight className="h-4 w-4" />
               </Link>
