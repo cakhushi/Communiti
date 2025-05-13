@@ -308,396 +308,193 @@ const blogPosts = [
   },
   {
     id: "4",
-    slug: "smart-investment-strategies",
+    slug: "investment-strategies-beginners",
     title: "Smart Investment Strategies for Beginners in 2025",
-    excerpt: "Learn the fundamentals of investing and discover strategies to build wealth over time.",
-    coverImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "Investments",
-    author: "Harsh",
+    excerpt: "Start your investment journey with these proven strategies designed for beginners in the current market.",
+    coverImage: "https://images.unsplash.com/photo-1579532537598-459ecdaf39cc?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    category: "Investment",
+    author: "Sanjay Mehta",
     authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
-    date: "June 3, 2024",
-    readTime: "10 min",
-    tags: ["Investments", "Wealth Building", "Financial Planning"],
+    date: "May 25, 2024",
+    readTime: "9 min",
+    tags: ["Investment", "Financial Planning", "Wealth Building"],
     content: `
       <div class="space-y-6">
         <h2 class="text-2xl font-semibold text-[#2E2E2E] mb-4">Introduction</h2>
-        <p class="text-[#4F4F4F] leading-relaxed">Starting your investment journey can be overwhelming, but with the right strategies and knowledge, you can build a strong financial foundation. This guide will help you understand the basics and make informed investment decisions.</p>
+        <p class="text-[#4F4F4F] leading-relaxed">Ready to grow your money but not sure where to start? Here are some smart, beginner-friendly strategies to kickstart your investment journey in 2025.</p>
 
         <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Investment Fundamentals</h3>
-          <p class="text-[#4F4F4F] leading-relaxed">Before diving into specific strategies, understand these key concepts:</p>
-          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
-            <li><strong>Risk vs. Return:</strong> Higher potential returns usually come with higher risk</li>
-            <li><strong>Diversification:</strong> Spread investments across different assets to reduce risk</li>
-            <li><strong>Time Horizon:</strong> Consider how long you can stay invested</li>
-            <li><strong>Liquidity:</strong> How quickly you can convert investments to cash</li>
-            <li><strong>Tax Efficiency:</strong> Consider tax implications of your investments</li>
-          </ul>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">1. Start with Clear Goals</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Invest with purpose — whether it's buying a home, saving for a child's education, or building wealth. Define short-term, mid-term, and long-term goals.</p>
         </div>
 
         <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Beginner-Friendly Investment Options</h3>
-          <div class="space-y-4">
-            <div>
-              <h4 class="font-semibold text-[#2E2E2E] mb-2">1. Mutual Funds</h4>
-              <p class="text-[#4F4F4F] leading-relaxed">Professional management and diversification:</p>
-              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
-                <li>Start with index funds or balanced funds</li>
-                <li>Systematic Investment Plans (SIPs) for regular investing</li>
-                <li>Low minimum investment amounts</li>
-                <li>Professional fund management</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 class="font-semibold text-[#2E2E2E] mb-2">2. Public Provident Fund (PPF)</h4>
-              <p class="text-[#4F4F4F] leading-relaxed">Government-backed savings scheme:</p>
-              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
-                <li>Tax-free returns</li>
-                <li>15-year lock-in period</li>
-                <li>Minimum investment of ₹500 per year</li>
-                <li>Eligible for tax deduction under Section 80C</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 class="font-semibold text-[#2E2E2E] mb-2">3. Equity-Linked Savings Scheme (ELSS)</h4>
-              <p class="text-[#4F4F4F] leading-relaxed">Tax-saving mutual funds:</p>
-              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
-                <li>3-year lock-in period</li>
-                <li>Potential for higher returns</li>
-                <li>Tax deduction under Section 80C</li>
-                <li>Exposure to equity markets</li>
-              </ul>
-            </div>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">2. Emergency Fund First</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Before investing, save at least 3–6 months of expenses in a liquid fund or savings account. It protects you from unexpected surprises.</p>
         </div>
 
         <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Investment Strategy Framework</h3>
-          <div class="space-y-4">
-            <div>
-              <h4 class="font-semibold text-[#2E2E2E] mb-2">1. Set Clear Goals</h4>
-              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
-                <li>Define short-term and long-term objectives</li>
-                <li>Quantify your financial goals</li>
-                <li>Set realistic timelines</li>
-                <li>Prioritize your goals</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 class="font-semibold text-[#2E2E2E] mb-2">2. Create an Emergency Fund</h4>
-              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
-                <li>Save 3-6 months of expenses</li>
-                <li>Keep in liquid instruments</li>
-                <li>Separate from investment portfolio</li>
-                <li>Regularly review and update</li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 class="font-semibold text-[#2E2E2E] mb-2">3. Asset Allocation</h4>
-              <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
-                <li>Balance between equity and debt</li>
-                <li>Consider your risk tolerance</li>
-                <li>Review and rebalance periodically</li>
-                <li>Adjust based on market conditions</li>
-              </ul>
-            </div>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">3. Diversify Your Investments</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Don't put all your money in one basket! Use a mix of:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-2 text-[#4F4F4F]">
+            <li>💰 Fixed Deposits for safety</li>
+            <li>📈 Mutual Funds/ELSS for growth</li>
+            <li>🏠 Real Estate for long-term returns</li>
+            <li>💸 NPS/PPF for tax savings</li>
+          </ul>
         </div>
 
         <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Common Investment Mistakes to Avoid</h3>
-          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-            <li>Investing without clear goals</li>
-            <li>Following market trends blindly</li>
-            <li>Not diversifying enough</li>
-            <li>Panic selling during market downturns</li>
-            <li>Ignoring inflation impact</li>
-            <li>Not reviewing portfolio regularly</li>
-          </ul>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">4. Start Small, Stay Consistent</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Begin with SIPs (Systematic Investment Plans) in mutual funds — even ₹500/month adds up! The power of compounding is your best friend.</p>
+        </div>
+
+        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">5. Avoid "Hot Tips" and Quick Gains</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">If it sounds too good to be true, it probably is. Stick to long-term, stable options and ignore market noise.</p>
+        </div>
+
+        <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">6. Use Tax Benefits</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Make use of Sections like 80C, 80D, and 80CCD(1B) to save on tax while investing smartly.</p>
+        </div>
+
+        <div class="bg-teal-50 p-6 rounded-lg border-l-4 border-teal-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">7. Review Once a Year</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Your financial goals and life situations change — so should your investments. Make time once a year to review and rebalance.</p>
         </div>
 
         <div class="bg-gray-50 p-6 rounded-lg mt-8">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Pro Tips</h3>
-          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-            <li>Start investing early to benefit from compound interest</li>
-            <li>Automate your investments through SIPs</li>
-            <li>Keep investment costs low</li>
-            <li>Stay invested for the long term</li>
-            <li>Regularly review and rebalance your portfolio</li>
-            <li>Consider consulting a financial advisor for personalized advice</li>
-          </ul>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Remember</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">🔔 Investing is a journey, not a race. Start smart. Stay patient. Watch your wealth grow!</p>
         </div>
       </div>
     `,
   },
   {
     id: "5",
-    slug: "top-accounting-software",
+    slug: "accounting-software-small-business",
     title: "Top 7 Accounting Software for Small Businesses in India",
-    excerpt: "Compare the best accounting software solutions for Indian small businesses, including features, pricing, and GST compliance.",
-    coverImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-    category: "Technology",
-    author: "Harsh",
-    authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
-    date: "June 4, 2024",
-    readTime: "12 min",
-    tags: ["Accounting Software", "GST", "Business Tools"],
+    excerpt: "Find the perfect accounting solution for your small business with our comprehensive comparison.",
+    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+    category: "Accounting",
+    author: "Neha Verma",
+    authorImage: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
+    date: "May 18, 2024",
+    readTime: "6 min",
+    tags: ["Accounting Software", "GST", "Small Business"],
     content: `
       <div class="space-y-6">
         <h2 class="text-2xl font-semibold text-[#2E2E2E] mb-4">Introduction</h2>
-        <p class="text-[#4F4F4F] leading-relaxed">Choosing the right accounting software is crucial for small businesses in India. This comprehensive guide compares the top 7 accounting solutions, focusing on GST compliance, ease of use, and value for money.</p>
+        <p class="text-[#4F4F4F] leading-relaxed">Running a business? Stay ahead with the right accounting tools! Here are the top 7 software options trusted by Indian small businesses for billing, GST filing, and financial management:</p>
 
         <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Key Features to Consider</h3>
-          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-            <li>GST compliance and filing capabilities</li>
-            <li>Invoice generation and management</li>
-            <li>Bank reconciliation features</li>
-            <li>Inventory management</li>
-            <li>Multi-user access</li>
-            <li>Mobile app availability</li>
-            <li>Customer support quality</li>
-            <li>Integration with other business tools</li>
-          </ul>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">1. TallyPrime</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">India's most trusted desktop-based accounting tool. Great for invoicing, inventory, GST, and compliance.</p>
+          <p class="text-[#4F4F4F] leading-relaxed mt-2"><strong>📌 Best for:</strong> Traditional businesses & accountants</p>
         </div>
 
         <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">1. TallyPrime</h3>
-          <div class="space-y-3">
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Traditional businesses requiring comprehensive accounting features</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Complete GST compliance</li>
-              <li>Advanced inventory management</li>
-              <li>Multi-company support</li>
-              <li>Customizable reports</li>
-            </ul>
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹18,000 per year</p>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">2. Zoho Books</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Cloud-based, user-friendly, and perfect for small to mid-sized businesses. Comes with GST filing, automation & mobile app.</p>
+          <p class="text-[#4F4F4F] leading-relaxed mt-2"><strong>📌 Best for:</strong> Tech-savvy startups & service providers</p>
         </div>
 
         <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">2. QuickBooks Online</h3>
-          <div class="space-y-3">
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Modern businesses seeking cloud-based solutions</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Cloud-based access</li>
-              <li>Automated bank feeds</li>
-              <li>Mobile app with receipt scanning</li>
-              <li>Multi-currency support</li>
-            </ul>
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹1,500 per month</p>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">3. QuickBooks (India)</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Clean UI and great for freelancers or service businesses. Easy bank sync & reporting. (Currently phased out but legacy users still exist)</p>
+          <p class="text-[#4F4F4F] leading-relaxed mt-2"><strong>📌 Best for:</strong> Freelancers & consultants</p>
         </div>
 
         <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">3. Zoho Books</h3>
-          <div class="space-y-3">
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Small businesses wanting an integrated ecosystem</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Integration with Zoho suite</li>
-              <li>Automated workflows</li>
-              <li>Client portal</li>
-              <li>Time tracking</li>
-            </ul>
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹2,999 per year</p>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">4. Vyapar</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Made for Indian businesses with billing, stock, and expense tracking. Works offline too!</p>
+          <p class="text-[#4F4F4F] leading-relaxed mt-2"><strong>📌 Best for:</strong> Small retailers & wholesalers</p>
         </div>
 
         <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">4. Busy Accounting</h3>
-          <div class="space-y-3">
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Manufacturing and trading businesses</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Advanced inventory features</li>
-              <li>Barcode support</li>
-              <li>Multi-location support</li>
-              <li>Manufacturing process tracking</li>
-            </ul>
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹15,000 per year</p>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">5. Busy Accounting</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Robust solution for inventory-led businesses with GST reports and barcode features.</p>
+          <p class="text-[#4F4F4F] leading-relaxed mt-2"><strong>📌 Best for:</strong> Traders, manufacturers</p>
         </div>
 
         <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">5. Marg ERP 9+</h3>
-          <div class="space-y-3">
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Retail and wholesale businesses</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Point of Sale features</li>
-              <li>Barcode management</li>
-              <li>Multi-branch support</li>
-              <li>GST compliance</li>
-            </ul>
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹12,000 per year</p>
-          </div>
-        </div>
-
-        <div class="bg-pink-50 p-6 rounded-lg border-l-4 border-pink-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">6. Vyapar</h3>
-          <div class="space-y-3">
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Small retail businesses and startups</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Simple interface</li>
-              <li>Mobile-first approach</li>
-              <li>Basic inventory management</li>
-              <li>GST billing</li>
-            </ul>
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹2,999 per year</p>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">6. Marg ERP</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Popular for pharma and retail businesses with supply chain features.</p>
+          <p class="text-[#4F4F4F] leading-relaxed mt-2"><strong>📌 Best for:</strong> Distributors & industry-specific use</p>
         </div>
 
         <div class="bg-teal-50 p-6 rounded-lg border-l-4 border-teal-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">7. ProfitBooks</h3>
-          <div class="space-y-3">
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Best for:</strong> Service-based businesses</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Cloud-based solution</li>
-              <li>Project management</li>
-              <li>Time tracking</li>
-              <li>Client portal</li>
-            </ul>
-            <p class="text-[#4F4F4F] leading-relaxed"><strong>Pricing:</strong> Starting from ₹1,999 per year</p>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">7. Khatabook / OkCredit</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Simple digital ledger apps for daily entries, free to use, and great for mobile use.</p>
+          <p class="text-[#4F4F4F] leading-relaxed mt-2"><strong>📌 Best for:</strong> Micro businesses & local shops</p>
         </div>
 
         <div class="bg-gray-50 p-6 rounded-lg mt-8">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Pro Tips</h3>
-          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-            <li>Start with a free trial before purchasing</li>
-            <li>Consider your business growth plans</li>
-            <li>Check for GST compliance features</li>
-            <li>Evaluate customer support quality</li>
-            <li>Consider data backup options</li>
-            <li>Look for mobile app availability</li>
-          </ul>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Tip</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">💡 Choose a software that suits your business size, GST needs, and ease of use.</p>
         </div>
       </div>
-    `
+    `,
   },
   {
     id: "6",
-    slug: "digital-marketing-accounting",
+    slug: "digital-marketing-tips-accounting-firms",
     title: "Digital Marketing Tips for Accounting Firms",
-    excerpt: "Learn effective digital marketing strategies to grow your accounting practice and attract more clients.",
-    coverImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    excerpt: "Learn how accounting firms can leverage digital marketing to attract and retain clients.",
+    coverImage: "https://images.unsplash.com/photo-1557838923-2985c318be48?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
     category: "Marketing",
-    author: "Harsh",
-    authorImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
-    date: "June 5, 2024",
-    readTime: "8 min",
-    tags: ["Digital Marketing", "Business Growth", "Client Acquisition"],
+    author: "Vikram Singh",
+    authorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80",
+    date: "May 10, 2024",
+    readTime: "5 min",
+    tags: ["Digital Marketing", "Accounting", "Business Growth"],
     content: `
       <div class="space-y-6">
         <h2 class="text-2xl font-semibold text-[#2E2E2E] mb-4">Introduction</h2>
-        <p class="text-[#4F4F4F] leading-relaxed">In today's digital age, accounting firms need a strong online presence to attract and retain clients. This guide provides practical digital marketing strategies tailored for accounting professionals.</p>
+        <p class="text-[#4F4F4F] leading-relaxed">Want more clients for your accounting practice? Here's how you can grow online with smart, simple marketing moves:</p>
 
         <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Website Optimization</h3>
-          <div class="space-y-4">
-            <p class="text-[#4F4F4F] leading-relaxed">Your website is your digital storefront. Make it count:</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Mobile-responsive design</li>
-              <li>Clear service descriptions</li>
-              <li>Easy contact forms</li>
-              <li>Client testimonials</li>
-              <li>Blog section for content marketing</li>
-              <li>SSL security certificate</li>
-              <li>Fast loading speed</li>
-            </ul>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">1. Build a Professional Website</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Your website is your digital visiting card. Include services, contact info, client testimonials, and a blog.</p>
         </div>
 
         <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Content Marketing Strategy</h3>
-          <div class="space-y-4">
-            <p class="text-[#4F4F4F] leading-relaxed">Create valuable content that positions you as an expert:</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Regular blog posts on tax updates</li>
-              <li>Downloadable guides and checklists</li>
-              <li>Video content explaining complex topics</li>
-              <li>Case studies of successful client work</li>
-              <li>Newsletter with industry insights</li>
-              <li>Infographics on tax deadlines</li>
-            </ul>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">2. Share Tax Tips on Social Media</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Post short, useful updates on Instagram, LinkedIn, or WhatsApp — like "Last date to file ITR" or "Top tax-saving ideas."</p>
         </div>
 
         <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Social Media Presence</h3>
-          <div class="space-y-4">
-            <p class="text-[#4F4F4F] leading-relaxed">Build your professional network online:</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>LinkedIn for professional networking</li>
-              <li>Twitter for quick updates and engagement</li>
-              <li>Facebook for community building</li>
-              <li>Instagram for behind-the-scenes content</li>
-              <li>Regular posting schedule</li>
-              <li>Engage with industry discussions</li>
-            </ul>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">3. Google My Business is a Must</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Register your firm on Google Maps — so people nearby can find you easily and see reviews.</p>
         </div>
 
         <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Local SEO Strategy</h3>
-          <div class="space-y-4">
-            <p class="text-[#4F4F4F] leading-relaxed">Improve your local visibility:</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Google Business Profile optimization</li>
-              <li>Local directory listings</li>
-              <li>Location-based keywords</li>
-              <li>Local backlinks</li>
-              <li>Client reviews management</li>
-              <li>Local content creation</li>
-            </ul>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">4. Email Your Clients Monthly</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Send a small newsletter with tax updates, due dates, or finance tips. It builds trust and keeps you top-of-mind.</p>
         </div>
 
         <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Email Marketing</h3>
-          <div class="space-y-4">
-            <p class="text-[#4F4F4F] leading-relaxed">Build and nurture client relationships:</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Regular newsletter updates</li>
-              <li>Tax deadline reminders</li>
-              <li>Service announcements</li>
-              <li>Client success stories</li>
-              <li>Personalized communication</li>
-              <li>Automated email sequences</li>
-            </ul>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">5. Use SEO-Optimized Blog Posts</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Write articles like "How to file ITR as a freelancer" — and rank on Google. It helps new clients find you.</p>
         </div>
 
         <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-500 mb-6">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Paid Advertising</h3>
-          <div class="space-y-4">
-            <p class="text-[#4F4F4F] leading-relaxed">Strategic paid campaigns:</p>
-            <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-              <li>Google Ads for local search</li>
-              <li>LinkedIn ads for B2B targeting</li>
-              <li>Facebook ads for brand awareness</li>
-              <li>Retargeting campaigns</li>
-              <li>Landing page optimization</li>
-              <li>Conversion tracking</li>
-            </ul>
-          </div>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">6. Run Targeted Ads (Small Budget)</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Use Facebook or Google Ads to reach businesses or salaried professionals near you. Start with just ₹200/day.</p>
+        </div>
+
+        <div class="bg-teal-50 p-6 rounded-lg border-l-4 border-teal-500 mb-6">
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">7. Answer FAQs with Reels or Posts</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">Common questions like "Which ITR to file?" or "Can I claim rent deduction?" — answer them with short reels or carousel posts.</p>
         </div>
 
         <div class="bg-gray-50 p-6 rounded-lg mt-8">
-          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Pro Tips</h3>
-          <ul class="list-disc pl-6 space-y-2 text-[#4F4F4F]">
-            <li>Consistency is key in digital marketing</li>
-            <li>Track and measure your results</li>
-            <li>Focus on quality over quantity</li>
-            <li>Stay updated with industry trends</li>
-            <li>Engage with your audience regularly</li>
-            <li>Invest in professional photography</li>
-          </ul>
+          <h3 class="text-xl font-semibold text-[#2E2E2E] mb-3">Key Principle</h3>
+          <p class="text-[#4F4F4F] leading-relaxed">💡 Be seen. Be helpful. Be trusted. That's the digital way to grow your accounting firm in 2025!</p>
         </div>
       </div>
-    `
+    `,
   },
 ];
 

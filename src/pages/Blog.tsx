@@ -131,7 +131,6 @@ const categories = [
   "GST",
   "Accounting",
   "Investment",
-  "Business",
   "Marketing",
 ];
 
