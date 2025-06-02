@@ -9,31 +9,31 @@ const Index = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="bg-gradient-candy text-white">
-        <div className="container-custom py-20 md:py-32">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6 animate-fade-up">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-shadow">
-                Professional Shared Services Solutions
-              </h1>
-              <p className="text-lg md:text-xl text-gray-200">
-                Expert business support to help you navigate financial, legal, and administrative challenges with confidence.
-              </p>
-              <div className="pt-4 flex flex-wrap gap-4">
-                <Button asChild size="lg" className="bg-white text-vibrant-purple hover:bg-gray-100 button-pop">
-                  <Link to="/contact">Get Started</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-white/10 button-pop">
-                  <Link to="/services/tax-filing">Explore Services</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="hidden md:block bubble">
-              <img 
-                src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                alt="Professional accountant working"
-                className="rounded-lg shadow-xl"
-              />
+      <section className="relative bg-[#1E3A8A] text-white min-h-[80vh] flex items-center overflow-hidden">
+        {/* Background Image */}
+        <img
+          src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80"
+          alt="Professional accountant working"
+          className="absolute inset-0 w-full h-full object-cover object-center z-0"
+          style={{opacity: 0.45}}
+        />
+        {/* Overlay (optional for extra contrast) */}
+        <div className="absolute inset-0 bg-[#1E3A8A] opacity-70 z-10" />
+        <div className="container-custom w-full py-10 md:py-0 relative z-20">
+          <div className="flex flex-col items-center justify-center min-h-[70vh] text-center">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white text-shadow mb-6">
+              Professional Shared Services Solutions
+            </h1>
+            <p className="text-lg md:text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
+              Expert business support to help you navigate financial, legal, and administrative challenges with confidence.
+            </p>
+            <div className="pt-2 flex flex-wrap gap-4 justify-center">
+              <Button asChild size="lg" className="bg-white text-[#1E3A8A] hover:bg-gray-100 button-pop font-semibold">
+                <Link to="/contact">Get Started</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="bg-white text-[#1E3A8A] hover:bg-gray-100 button-pop font-semibold">
+                <Link to="/services/tax-filing">Explore Services</Link>
+              </Button>
             </div>
           </div>
         </div>
