@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
 import Layout from "@/components/Layout";
 import { 
   Calculator, 
@@ -21,10 +22,75 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import jsPDF from "jspdf";
+import emailjs from "emailjs-com";
+import { EMAILJS_CONFIG } from "@/lib/emailjs";
+
+// Add this CSS to the file (or in a <style jsx> block if using CSS-in-JS)
+/* Tooltip i button styles */
+const tooltipStyles = `
+  .tooltip-i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #f3f4f6;
+    color: #6366f1;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    border: 1px solid #e5e7eb;
+    cursor: pointer;
+    margin-left: 4px;
+    transition: background 0.15s, color 0.15s;
+    position: relative;
+    z-index: 1;
+  }
+  .tooltip-i:hover, .tooltip-i:focus {
+    background: #6366f1;
+    color: #fff;
+  }
+  .tooltip-i[data-tooltip]:hover:after, .tooltip-i[data-tooltip]:focus:after {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-6px);
+  }
+  .tooltip-i:after {
+    content: attr(data-tooltip);
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    left: 50%;
+    top: -38px;
+    transform: translateX(-50%) translateY(0);
+    min-width: 180px;
+    max-width: 260px;
+    background: #fff;
+    color: #222;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.4;
+    white-space: normal;
+    transition: opacity 0.18s, transform 0.18s;
+    z-index: 10;
+  }
+`;
+// Inject the style tag at the top of the component
+if (typeof window !== 'undefined' && !document.getElementById('tax-tooltip-style')) {
+  const style = document.createElement('style');
+  style.id = 'tax-tooltip-style';
+  style.innerHTML = tooltipStyles;
+  document.head.appendChild(style);
+}
 
 const Tools = () => {
   // Tax Calculator State
-  const [income, setIncome] = useState<number>(500000);
   const [age, setAge] = useState<string>("below60");
   const [regime, setRegime] = useState<string>("new");
   const [deductions, setDeductions] = useState<number>(50000);
@@ -102,15 +168,21 @@ const Tools = () => {
   const [businessIncome, setBusinessIncome] = useState<number>(0);
   const [capitalGainsIncome, setCapitalGainsIncome] = useState<number>(0);
   const [otherIncome, setOtherIncome] = useState<number>(0);
+  const [stcg, setStcg] = useState<number>(0);
+  const [ltcg, setLtcg] = useState<number>(0);
+  const [presumptiveIncome, setPresumptiveIncome] = useState<number>(0);
 
   // Deductions
+  const [stdDeduction, setStdDeduction] = useState<number>(50000);
+  const [professionalTax, setProfessionalTax] = useState<number>(0);
   const [section80C, setSection80C] = useState<number>(0);
   const [section80D, setSection80D] = useState<number>(0);
+  const [section80CCD1, setSection80CCD1] = useState<number>(0);
+  const [section80CCD1B, setSection80CCD1B] = useState<number>(0);
+  const [section80CCD2, setSection80CCD2] = useState<number>(0);
+  const [section80TTA, setSection80TTA] = useState<number>(0);
   const [section80G, setSection80G] = useState<number>(0);
-  const [housingLoanInterest, setHousingLoanInterest] = useState<number>(0);
-  const [npsContribution, setNpsContribution] = useState<number>(0);
-  const [standardDeduction, setStandardDeduction] = useState<number>(50000);
-  const [professionalTax, setProfessionalTax] = useState<number>(2400);
+  const [otherVIADeduction, setOtherVIADeduction] = useState<number>(0);
 
   // Comparison Results
   const [taxComparison, setTaxComparison] = useState<any>(null);
@@ -118,7 +190,8 @@ const Tools = () => {
   // Financial Year Tax Rules
   const taxRules = {
     "2024-25": {
-      standardDeduction: 50000,
+      standardDeductionOld: 50000,
+      standardDeductionNew: 75000, // <-- updated for new regime
       old: {
         slabs: [
           { limit: 250000, rate: 0 },
@@ -141,7 +214,7 @@ const Tools = () => {
       new: {
         slabs: [
           { limit: 300000, rate: 0 },
-          { limit: 600000, rate: 5 },
+          { limit: 700000, rate: 5 },
           { limit: 900000, rate: 10 },
           { limit: 1200000, rate: 15 },
           { limit: 1500000, rate: 20 },
@@ -240,20 +313,150 @@ const Tools = () => {
     }
   };
 
+  // Add new state for all new fields in the Tax tab
+  const [exemptAllowances, setExemptAllowances] = useState<number>(0);
+  const [otherSourcesIncome, setOtherSourcesIncome] = useState<number>(0);
+  const [homeLoanSelf, setHomeLoanSelf] = useState<number>(0);
+  const [rentalIncome, setRentalIncome] = useState<number>(0);
+  const [homeLoanLetout, setHomeLoanLetout] = useState<number>(0);
+  const [section80EEA, setSection80EEA] = useState<number>(0);
+  const [otherDeductions, setOtherDeductions] = useState<number>(0);
+
+  // Add state for results
+  const [oldTaxResult, setOldTaxResult] = useState({taxableIncome: 0, basicTax: 0, surcharge: 0, cess: 0, totalTax: 0});
+  const [newTaxResult, setNewTaxResult] = useState({taxableIncome: 0, basicTax: 0, surcharge: 0, cess: 0, totalTax: 0});
+
+  // Add reset function
+  const resetTaxForm = () => {
+    setSalaryIncome(0);
+    setExemptAllowances(0);
+    setOtherSourcesIncome(0);
+    setHomeLoanSelf(0);
+    setRentalIncome(0);
+    setHomeLoanLetout(0);
+    setOtherIncome(0);
+    setSection80C(0);
+    setSection80TTA(0);
+    setSection80D(0);
+    setSection80G(0);
+    setSection80EEA(0);
+    setSection80CCD1B(0);
+    setSection80CCD2(0);
+    setOtherDeductions(0);
+  };
+
+  // Calculation logic for both regimes (runs on input change)
+  useEffect(() => {
+    // Calculate gross total income
+    const grossIncome =
+      (salaryIncome || 0) +
+      (otherSourcesIncome || 0) +
+      (rentalIncome || 0) +
+      (otherIncome || 0) -
+      (exemptAllowances || 0);
+    // Home loan interest (self-occupied, max 2L under old regime)
+    const homeLoanSelfDed = Math.min(homeLoanSelf || 0, 200000);
+    // Home loan let-out (fully allowed)
+    const homeLoanLetoutDed = homeLoanLetout || 0;
+    // Deductions
+    const deductionsOld =
+      Math.min(section80C || 0, 150000) +
+      Math.min(section80TTA || 0, 10000) +
+      (section80D || 0) +
+      (section80G || 0) +
+      Math.min(section80EEA || 0, 150000) +
+      Math.min(section80CCD1B || 0, 50000) +
+      (section80CCD2 || 0) +
+      (otherDeductions || 0) +
+      homeLoanSelfDed +
+      homeLoanLetoutDed;
+    // Old regime: standard deduction 50,000
+    const stdDedOld = 50000;
+    const taxableOld = Math.max(0, grossIncome - stdDedOld - deductionsOld);
+    // Old regime slab calculation
+    let taxOld = 0;
+    if (taxableOld <= 250000) taxOld = 0;
+    else if (taxableOld <= 500000) taxOld = (taxableOld - 250000) * 0.05;
+    else if (taxableOld <= 1000000) taxOld = 12500 + (taxableOld - 500000) * 0.2;
+    else taxOld = 112500 + (taxableOld - 1000000) * 0.3;
+    // Rebate 87A
+    if (taxableOld <= 500000) taxOld = 0;
+    // Surcharge
+    let surchargeOld = 0;
+    if (taxableOld > 5000000 && taxableOld <= 10000000) surchargeOld = taxOld * 0.1;
+    else if (taxableOld > 10000000 && taxableOld <= 20000000) surchargeOld = taxOld * 0.15;
+    else if (taxableOld > 20000000 && taxableOld <= 50000000) surchargeOld = taxOld * 0.25;
+    else if (taxableOld > 50000000) surchargeOld = taxOld * 0.37;
+    // Cess
+    const cessOld = (taxOld + surchargeOld) * 0.04;
+    // Total
+    const totalOld = taxOld + surchargeOld + cessOld;
+    setOldTaxResult({taxableIncome: taxableOld, basicTax: taxOld, surcharge: surchargeOld, cess: cessOld, totalTax: totalOld});
+
+    // New regime: standard deduction 75,000, only 80CCD(2) and home loan let-out allowed
+    const stdDedNew = 75000;
+    const deductionsNew = (section80CCD2 || 0) + homeLoanLetoutDed;
+    const taxableNew = Math.max(0, grossIncome - stdDedNew - deductionsNew);
+    // New regime slab calculation (FY 2024-25)
+    let taxNew = 0;
+    if (taxableNew > 1500000) taxNew = (taxableNew - 1500000) * 0.3 + 140000;
+    else if (taxableNew > 1200000) taxNew = (taxableNew - 1200000) * 0.2 + 80000;
+    else if (taxableNew > 1000000) taxNew = (taxableNew - 1000000) * 0.15 + 50000;
+    else if (taxableNew > 700000) taxNew = (taxableNew - 700000) * 0.1 + 20000;
+    else if (taxableNew > 300000) taxNew = (taxableNew - 300000) * 0.05;
+    else taxNew = 0;
+    // Rebate 87A
+    if (taxableNew <= 700000) taxNew = 0;
+    // Surcharge
+    let surchargeNew = 0;
+    if (taxableNew > 5000000 && taxableNew <= 10000000) surchargeNew = taxNew * 0.1;
+    else if (taxableNew > 10000000 && taxableNew <= 20000000) surchargeNew = taxNew * 0.15;
+    else if (taxableNew > 20000000 && taxableNew <= 50000000) surchargeNew = taxNew * 0.25;
+    else if (taxableNew > 50000000) surchargeNew = taxNew * 0.37;
+    // Cess
+    const cessNew = (taxNew + surchargeNew) * 0.04;
+    // Total
+    const totalNew = taxNew + surchargeNew + cessNew;
+    setNewTaxResult({taxableIncome: taxableNew, basicTax: taxNew, surcharge: surchargeNew, cess: cessNew, totalTax: totalNew});
+  }, [salaryIncome, exemptAllowances, otherSourcesIncome, homeLoanSelf, rentalIncome, homeLoanLetout, otherIncome, section80C, section80TTA, section80D, section80G, section80EEA, section80CCD1B, section80CCD2, otherDeductions]);
+
   // Tax Calculation
   const calculateTax = () => {
-    if (income > 0) {
-      let taxableIncome = income;
+    if (salaryIncome > 0 || housePropertyIncome > 0 || otherIncome > 0 || stcg > 0 || ltcg > 0 || presumptiveIncome > 0) {
+      let grossSalary = (salaryIncome || 0) + (housePropertyIncome || 0) + (otherIncome || 0) + (stcg || 0) + (ltcg || 0) + (presumptiveIncome || 0);
+      let stdDeduction = 0;
+      let taxableIncome = 0;
       let tax = 0;
       let surcharge = 0;
       let cess = 0;
       let effectiveRate = 0;
+      let totalDeductions = 0;
       
       if (regime === "old") {
-        // Apply deductions in old regime
-        taxableIncome = Math.max(0, income - deductions);
-        
-        // Old Regime Tax Slabs FY 2024-25
+        stdDeduction = taxRules["2024-25"].standardDeductionOld;
+        // Deductions: standard deduction + user deductions
+        totalDeductions =
+          (stdDeduction || 0) +
+          (professionalTax || 0) +
+          (section80C || 0) +
+          (section80D || 0) +
+          (section80CCD1 || 0) +
+          (section80CCD1B || 0) +
+          (section80CCD2 || 0) +
+          (section80TTA || 0) +
+          (section80G || 0) +
+          (otherVIADeduction || 0);
+        taxableIncome = Math.max(0, grossSalary - totalDeductions);
+      } else {
+        stdDeduction = taxRules["2024-25"].standardDeductionNew;
+        // Only standard deduction allowed in new regime
+        totalDeductions = stdDeduction;
+        taxableIncome = Math.max(0, grossSalary - stdDeduction);
+      }
+
+      // Old regime slabs (with age group logic)
+      if (regime === "old") {
+        if (age === "below60") {
         if (taxableIncome <= 250000) {
           tax = 0;
         } else if (taxableIncome <= 500000) {
@@ -263,33 +466,39 @@ const Tools = () => {
         } else {
           tax = 112500 + (taxableIncome - 1000000) * 0.3;
         }
-        
-        // Senior citizen adjustments
-        if (age === "60to80" && taxableIncome <= 300000) {
+        } else if (age === "60to80") {
+          if (taxableIncome <= 300000) {
           tax = 0;
-        } else if (age === "60to80" && taxableIncome <= 500000) {
+          } else if (taxableIncome <= 500000) {
           tax = (taxableIncome - 300000) * 0.05;
+          } else if (taxableIncome <= 1000000) {
+            tax = 10000 + (taxableIncome - 500000) * 0.2;
+          } else {
+            tax = 110000 + (taxableIncome - 1000000) * 0.3;
         }
-        
-        if (age === "above80" && taxableIncome <= 500000) {
+        } else if (age === "above80") {
+          if (taxableIncome <= 500000) {
           tax = 0;
-        } else if (age === "above80" && taxableIncome <= 1000000) {
+          } else if (taxableIncome <= 1000000) {
           tax = (taxableIncome - 500000) * 0.2;
+          } else {
+            tax = 100000 + (taxableIncome - 1000000) * 0.3;
+          }
         }
       } else {
-        // New Regime Tax Slabs FY 2024-25
-        if (taxableIncome <= 300000) {
-          tax = 0;
-        } else if (taxableIncome <= 600000) {
+        // New regime slabs (cumulative, as per Excel logic)
+        if (taxableIncome > 1500000) {
+          tax = (taxableIncome - 1500000) * 0.3 + 140000;
+        } else if (taxableIncome > 1200000) {
+          tax = (taxableIncome - 1200000) * 0.2 + 80000;
+        } else if (taxableIncome > 1000000) {
+          tax = (taxableIncome - 1000000) * 0.15 + 50000;
+        } else if (taxableIncome > 700000) {
+          tax = (taxableIncome - 700000) * 0.1 + 20000;
+        } else if (taxableIncome > 300000) {
           tax = (taxableIncome - 300000) * 0.05;
-        } else if (taxableIncome <= 900000) {
-          tax = 15000 + (taxableIncome - 600000) * 0.1;
-        } else if (taxableIncome <= 1200000) {
-          tax = 45000 + (taxableIncome - 900000) * 0.15;
-        } else if (taxableIncome <= 1500000) {
-          tax = 90000 + (taxableIncome - 1200000) * 0.2;
         } else {
-          tax = 150000 + (taxableIncome - 1500000) * 0.3;
+          tax = 0;
         }
       }
       
@@ -317,15 +526,23 @@ const Tools = () => {
       const totalTax = tax + surcharge + cess;
       
       // Effective tax rate
-      effectiveRate = income > 0 ? (totalTax / income) * 100 : 0;
+      effectiveRate = grossSalary > 0 ? (totalTax / grossSalary) * 100 : 0;
       
       setTaxResults({
+        grossSalary,
+        stdDeduction,
+        totalDeductions,
         taxableIncome,
         basicTax: tax,
         surcharge,
         cess,
         totalTax,
-        effectiveRate
+        effectiveRate,
+        section80C: regime === "old" ? section80C : 0,
+        section80D: regime === "old" ? section80D : 0,
+        section80G: regime === "old" ? section80G : 0,
+        housingLoanInterest: 0, // Always set, even if not used
+        npsContribution: 0, // Always set, even if not used
       });
     }
   };
@@ -655,40 +872,113 @@ const Tools = () => {
     }
   };
 
-  // Calculate Tax Comparison
+  // PDF Download Handler
+  const handleDownloadPDF = () => {
+    if (!taxResults) return;
+    const doc = new jsPDF();
+    doc.setFontSize(16);
+    doc.text("Income Tax Calculation Summary (FY 2024-25)", 10, 15);
+    doc.setFontSize(12);
+    let y = 30;
+    const summary = [
+      ["Taxable Income", `₹${taxResults.taxableIncome.toLocaleString('en-IN')}`],
+      ["Basic Tax", `₹${taxResults.basicTax.toLocaleString('en-IN')}`],
+      ["Surcharge", `₹${taxResults.surcharge.toLocaleString('en-IN')}`],
+      ["Health & Education Cess (4%)", `₹${taxResults.cess.toLocaleString('en-IN')}`],
+      ["Total Tax Liability", `₹${taxResults.totalTax.toLocaleString('en-IN')}`],
+      ["Effective Tax Rate", `${taxResults.effectiveRate.toFixed(2)}%`],
+    ];
+    summary.forEach(([label, value]) => {
+      doc.text(`${label}:`, 10, y);
+      doc.text(value, 100, y);
+      y += 10;
+    });
+    doc.save("tax-summary-fy2024-25.pdf");
+  };
+
+  // Email Results Handler
+  const handleSendEmail = async () => {
+    if (!taxResults || !emailTo) return;
+    setEmailStatus(null);
+    try {
+      await emailjs.send(
+        EMAILJS_CONFIG.SERVICE_ID,
+        EMAILJS_CONFIG.TEMPLATE_ID,
+        {
+          to_email: emailTo,
+          subject: "Your Income Tax Calculation Results (FY 2024-25)",
+          message: `Taxable Income: ₹${taxResults.taxableIncome.toLocaleString('en-IN')}\nBasic Tax: ₹${taxResults.basicTax.toLocaleString('en-IN')}\nSurcharge: ₹${taxResults.surcharge.toLocaleString('en-IN')}\nCess: ₹${taxResults.cess.toLocaleString('en-IN')}\nTotal Tax: ₹${taxResults.totalTax.toLocaleString('en-IN')}\nEffective Tax Rate: ${taxResults.effectiveRate.toFixed(2)}%`,
+        },
+        EMAILJS_CONFIG.USER_ID
+      );
+      setEmailStatus("Email sent successfully!");
+    } catch (error) {
+      setEmailStatus("Failed to send email. Please try again.");
+    }
+  };
+
+  // New state for email modal
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [emailTo, setEmailTo] = useState("");
+  const [emailStatus, setEmailStatus] = useState<string | null>(null);
+
+  // Add this helper function inside the Tools component, before the return statement
+  const handleCompareOtherRegime = () => {
+    setTaxComparison(null);
+    setSelectedYear("2024-25");
+  };
+
+  // 1. Add separate state for compare tab
+  const [compare_salaryIncome, setCompareSalaryIncome] = useState<number>(0);
+  const [compare_housePropertyIncome, setCompareHousePropertyIncome] = useState<number>(0);
+  const [compare_businessIncome, setCompareBusinessIncome] = useState<number>(0);
+  const [compare_capitalGainsIncome, setCompareCapitalGainsIncome] = useState<number>(0);
+  const [compare_otherIncome, setCompareOtherIncome] = useState<number>(0);
+  const [compare_section80C, setCompareSection80C] = useState<number>(0);
+  const [compare_section80D, setCompareSection80D] = useState<number>(0);
+  const [compare_section80G, setCompareSection80G] = useState<number>(0);
+  const [compare_professionalTax, setCompareProfessionalTax] = useState<number>(0);
+  const [compare_section80CCD1, setCompareSection80CCD1] = useState<number>(0);
+  const [compare_section80CCD1B, setCompareSection80CCD1B] = useState<number>(0);
+  const [compare_section80CCD2, setCompareSection80CCD2] = useState<number>(0);
+  const [compare_section80TTA, setCompareSection80TTA] = useState<number>(0);
+  const [compare_otherVIADeduction, setCompareOtherVIADeduction] = useState<number>(0);
+
+  // 2. Update calculateTaxComparison to use compare_ fields
   const calculateTaxComparison = () => {
     const rules = taxRules[selectedYear];
-    
     // Calculate Total Income
-    const totalIncome = salaryIncome + housePropertyIncome + businessIncome + capitalGainsIncome + otherIncome;
-    
-    // Calculate Old Regime Tax
-    const oldRegimeDeductions = Math.min(section80C, rules.old.section80C) + 
-                               Math.min(section80D, rules.old.section80D) +
-                               Math.min(npsContribution, rules.old.section80CCD1B) +
-                               Math.min(housingLoanInterest, rules.old.housingLoanInterest) +
-                               section80G +
-                               (salaryIncome > 0 ? standardDeduction + professionalTax : 0);
-    
+    const totalIncome =
+      (compare_salaryIncome || 0) +
+      (compare_housePropertyIncome || 0) +
+      (compare_businessIncome || 0) +
+      (compare_capitalGainsIncome || 0) +
+      (compare_otherIncome || 0);
+    // Calculate Old Regime Deductions
+    const oldRegimeDeductions =
+      Math.min(compare_section80C || 0, rules.old.section80C || 0) +
+      Math.min(compare_section80D || 0, rules.old.section80D || 0) +
+      Math.min(compare_section80CCD1 || 0, rules.old.section80CCD1 || 0) +
+      Math.min(compare_section80CCD1B || 0, rules.old.section80CCD1B || 0) +
+      Math.min(compare_section80CCD2 || 0, rules.old.section80CCD2 || 0) +
+      (compare_section80TTA || 0) +
+      (compare_section80G || 0) +
+      (compare_otherVIADeduction || 0) +
+      (compare_salaryIncome > 0 ? (rules.standardDeductionOld || 0) + (compare_professionalTax || 0) : 0);
     const oldRegimeTaxableIncome = Math.max(0, totalIncome - oldRegimeDeductions);
-    
     // Calculate tax based on slabs (old regime)
     let oldRegimeTax = 0;
     let remainingIncome = oldRegimeTaxableIncome;
-    
     for (const slab of rules.old.slabs) {
       if (remainingIncome <= 0) break;
-      
       const taxableInThisSlab = Math.min(remainingIncome, slab.limit - (slab === rules.old.slabs[0] ? 0 : rules.old.slabs[rules.old.slabs.indexOf(slab) - 1].limit));
       oldRegimeTax += (taxableInThisSlab * slab.rate) / 100;
       remainingIncome -= taxableInThisSlab;
     }
-    
     // Section 87A Rebate (old regime)
     if (oldRegimeTaxableIncome <= 500000) {
       oldRegimeTax = Math.max(0, oldRegimeTax - 12500);
     }
-    
     // Calculate surcharge (old regime)
     let oldRegimeSurcharge = 0;
     if (oldRegimeTaxableIncome > 5000000) {
@@ -699,33 +989,31 @@ const Tools = () => {
         }
       }
     }
-    
     // Calculate cess (old regime)
     const oldRegimeCess = (oldRegimeTax + oldRegimeSurcharge) * (rules.old.cessRate / 100);
-    
     // Total old regime tax liability
     const oldRegimeTotalTax = oldRegimeTax + oldRegimeSurcharge + oldRegimeCess;
-    
     // Calculate New Regime Tax
-    const newRegimeTaxableIncome = totalIncome - (salaryIncome > 0 ? rules.standardDeduction : 0);
-    
+    const newRegimeTaxableIncome = totalIncome - (compare_salaryIncome > 0 ? rules.standardDeductionNew : 0);
     // Calculate tax based on slabs (new regime)
     let newRegimeTax = 0;
-    remainingIncome = newRegimeTaxableIncome;
-    
-    for (const slab of rules.new.slabs) {
-      if (remainingIncome <= 0) break;
-      
-      const taxableInThisSlab = Math.min(remainingIncome, slab.limit - (slab === rules.new.slabs[0] ? 0 : rules.new.slabs[rules.new.slabs.indexOf(slab) - 1].limit));
-      newRegimeTax += (taxableInThisSlab * slab.rate) / 100;
-      remainingIncome -= taxableInThisSlab;
+    if (newRegimeTaxableIncome > 1500000) {
+      newRegimeTax = (newRegimeTaxableIncome - 1500000) * 0.3 + 140000;
+    } else if (newRegimeTaxableIncome > 1200000) {
+      newRegimeTax = (newRegimeTaxableIncome - 1200000) * 0.2 + 80000;
+    } else if (newRegimeTaxableIncome > 1000000) {
+      newRegimeTax = (newRegimeTaxableIncome - 1000000) * 0.15 + 50000;
+    } else if (newRegimeTaxableIncome > 700000) {
+      newRegimeTax = (newRegimeTaxableIncome - 700000) * 0.1 + 20000;
+    } else if (newRegimeTaxableIncome > 300000) {
+      newRegimeTax = (newRegimeTaxableIncome - 300000) * 0.05;
+    } else {
+      newRegimeTax = 0;
     }
-    
     // Section 87A Rebate (new regime)
     if (newRegimeTaxableIncome <= rules.new.rebateLimit) {
       newRegimeTax = 0;
     }
-    
     // Calculate surcharge (new regime)
     let newRegimeSurcharge = 0;
     if (newRegimeTaxableIncome > 5000000) {
@@ -736,13 +1024,10 @@ const Tools = () => {
         }
       }
     }
-    
     // Calculate cess (new regime)
     const newRegimeCess = (newRegimeTax + newRegimeSurcharge) * (rules.new.cessRate / 100);
-    
     // Total new regime tax liability
     const newRegimeTotalTax = newRegimeTax + newRegimeSurcharge + newRegimeCess;
-    
     // Set comparison results
     setTaxComparison({
       totalIncome,
@@ -753,21 +1038,279 @@ const Tools = () => {
         surcharge: oldRegimeSurcharge,
         cess: oldRegimeCess,
         totalTax: oldRegimeTotalTax,
-        effectiveRate: (oldRegimeTotalTax / totalIncome) * 100
+        effectiveRate: totalIncome > 0 ? (oldRegimeTotalTax / totalIncome) * 100 : 0
       },
       new: {
-        deductions: (salaryIncome > 0 ? rules.standardDeduction : 0),
+        deductions: (compare_salaryIncome > 0 ? rules.standardDeductionNew : 0),
         taxableIncome: newRegimeTaxableIncome,
         basicTax: newRegimeTax,
         surcharge: newRegimeSurcharge,
         cess: newRegimeCess,
         totalTax: newRegimeTotalTax,
-        effectiveRate: (newRegimeTotalTax / totalIncome) * 100
+        effectiveRate: totalIncome > 0 ? (newRegimeTotalTax / totalIncome) * 100 : 0
       },
       difference: oldRegimeTotalTax - newRegimeTotalTax,
       recommended: oldRegimeTotalTax < newRegimeTotalTax ? "old" : "new"
     });
   };
+
+  // 1. Add a stepper state for the tax tab
+  const [taxStep, setTaxStep] = useState<number>(1);
+
+  // 2. Add a function to go to the next/previous step
+  const nextTaxStep = () => setTaxStep((s) => Math.min(s + 1, 4));
+  const prevTaxStep = () => setTaxStep((s) => Math.max(s - 1, 1));
+  const gotoTaxStep = (step: number) => setTaxStep(step);
+
+  // 3. Refactor the Tax tab UI to use a stepper (multi-step form)
+  <TabsContent value="tax">
+    <Card className="shadow-lg">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Calculator className="h-6 w-6 text-vibrant-purple" />
+          Income Tax Calculator (FY 2024-25)
+        </CardTitle>
+        <CardDescription>
+          Calculate your income tax liability for FY 2024-25. Enter all your income and deduction details. Compare both regimes side-by-side.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        {/* Stepper Progress Bar */}
+        <div className="flex items-center justify-between mb-6">
+          {[1,2,3,4].map((step) => (
+            <div key={step} className="flex-1 flex flex-col items-center">
+              <button
+                className={`w-8 h-8 rounded-full flex items-center justify-center font-bold border-2 ${taxStep === step ? 'bg-vibrant-purple text-white border-vibrant-purple' : 'bg-white text-vibrant-purple border-vibrant-purple/30'} transition`}
+                onClick={() => gotoTaxStep(step)}
+                disabled={taxStep < step}
+              >{step}</button>
+              <span className={`text-xs mt-1 ${taxStep === step ? 'text-vibrant-purple' : 'text-gray-400'}`}>{['Basic','Income','Deductions','Results'][step-1]}</span>
+            </div>
+          ))}
+        </div>
+        {/* Step 1: Basic Details */}
+        {taxStep === 1 && (
+          <div className="space-y-6 animate-fade-in">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="regime">Tax Regime</Label>
+                <Select value={regime} onValueChange={setRegime}>
+                  <SelectTrigger id="regime">
+                    <SelectValue placeholder="Select tax regime" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="new">New Regime</SelectItem>
+                    <SelectItem value="old">Old Regime</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="age">Age Group</Label>
+                <Select value={age} onValueChange={setAge}>
+                  <SelectTrigger id="age">
+                    <SelectValue placeholder="Select age group" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="below60">Below 60</SelectItem>
+                    <SelectItem value="60to80">Senior Citizen (60-80)</SelectItem>
+                    <SelectItem value="above80">Super Senior (80+)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button onClick={nextTaxStep} className="bg-vibrant-purple hover:bg-vibrant-purple/90">Next</Button>
+            </div>
+          </div>
+        )}
+        {/* Step 2: Income Details (ClearTax style) */}
+        {taxStep === 2 && (
+          <div className="space-y-6 animate-fade-in">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="salaryIncome">Salary Income (₹)</Label>
+                <Input id="salaryIncome" type="number" placeholder="0" value={salaryIncome || ""} onChange={e => setSalaryIncome(parseFloat(e.target.value) || 0)} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="housePropertyIncome">Income from House Property (₹)</Label>
+                <Input id="housePropertyIncome" type="number" placeholder="0" value={housePropertyIncome || ""} onChange={e => setHousePropertyIncome(parseFloat(e.target.value) || 0)} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="otherIncome">Income from Other Sources (₹)</Label>
+                <Input id="otherIncome" type="number" placeholder="0" value={otherIncome || ""} onChange={e => setOtherIncome(parseFloat(e.target.value) || 0)} />
+                <span className="text-xs text-gray-500">Interest, FD, Dividends, etc.</span>
+              </div>
+            </div>
+            <div className="flex justify-between gap-2">
+              <Button variant="outline" onClick={prevTaxStep}>Back</Button>
+              <Button onClick={nextTaxStep} className="bg-vibrant-purple hover:bg-vibrant-purple/90">Next</Button>
+            </div>
+          </div>
+        )}
+        {/* Step 3: Deductions (ClearTax style) */}
+        {taxStep === 3 && (
+          <div className="space-y-6 animate-fade-in">
+            <div className="border rounded-lg p-4 bg-slate-50">
+              <h4 className="font-semibold mb-2">Deductions (Chapter VI-A)</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="stdDeduction">Standard Deduction (₹)
+                    <span className="ml-1 text-xs text-gray-400" title="₹50,000 (Old Regime), ₹75,000 (New Regime from Salary only)">?</span>
+                  </Label>
+                  <Input id="stdDeduction" type="number" placeholder={regime === "new" ? "75000" : "50000"} value={stdDeduction || ""} onChange={e => setStdDeduction(parseFloat(e.target.value) || 0)} disabled />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="professionalTax">Professional Tax (₹)
+                    <span className="ml-1 text-xs text-gray-400" title="Up to ₹2,500 or actual paid amount">?</span>
+                  </Label>
+                  <Input id="professionalTax" type="number" placeholder="0" value={professionalTax || ""} onChange={e => setProfessionalTax(parseFloat(e.target.value) || 0)} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="section80C">Section 80C (₹)
+                    <span className="ml-1 text-xs text-gray-400" title="LIC, PPF, ELSS, etc. – max ₹1.5L">?</span>
+                  </Label>
+                  <Input id="section80C" type="number" placeholder="0" value={section80C || ""} onChange={e => setSection80C(parseFloat(e.target.value) || 0)} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="section80D">Section 80D (₹)
+                    <span className="ml-1 text-xs text-gray-400" title="Health insurance premium">?</span>
+                  </Label>
+                  <Input id="section80D" type="number" placeholder="0" value={section80D || ""} onChange={e => setSection80D(parseFloat(e.target.value) || 0)} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="section80CCD1">Section 80CCD(1) (₹)
+                    <span className="ml-1 text-xs text-gray-400" title="NPS Employee Contribution">?</span>
+                  </Label>
+                  <Input id="section80CCD1" type="number" placeholder="0" value={section80CCD1 || ""} onChange={e => setSection80CCD1(parseFloat(e.target.value) || 0)} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="section80CCD1B">Section 80CCD(1B) (₹)
+                    <span className="ml-1 text-xs text-gray-400" title="NPS Additional Deduction (₹50,000)">?</span>
+                  </Label>
+                  <Input id="section80CCD1B" type="number" placeholder="0" value={section80CCD1B || ""} onChange={e => setSection80CCD1B(parseFloat(e.target.value) || 0)} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="section80CCD2">Section 80CCD(2) (₹)
+                    <span className="ml-1 text-xs text-gray-400" title="NPS Employer Contribution (separate from 80C limit)">?</span>
+                  </Label>
+                  <Input id="section80CCD2" type="number" placeholder="0" value={section80CCD2 || ""} onChange={e => setSection80CCD2(parseFloat(e.target.value) || 0)} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="section80TTA">Section 80TTA (₹)
+                    <span className="ml-1 text-xs text-gray-400" title="Interest on Savings (max ₹10,000)">?</span>
+                  </Label>
+                  <Input id="section80TTA" type="number" placeholder="0" value={section80TTA || ""} onChange={e => setSection80TTA(parseFloat(e.target.value) || 0)} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="section80G">Section 80G (₹)
+                    <span className="ml-1 text-xs text-gray-400" title="Donations">?</span>
+                  </Label>
+                  <Input id="section80G" type="number" placeholder="0" value={section80G || ""} onChange={e => setSection80G(parseFloat(e.target.value) || 0)} />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="otherVIADeduction">Other Chapter VI-A Deduction (₹)</Label>
+                  <Input id="otherVIADeduction" type="number" placeholder="0" value={otherVIADeduction || ""} onChange={e => setOtherVIADeduction(parseFloat(e.target.value) || 0)} />
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-between gap-2">
+              <Button variant="outline" onClick={prevTaxStep}>Back</Button>
+              <Button onClick={nextTaxStep} className="bg-vibrant-purple hover:bg-vibrant-purple/90">Next</Button>
+            </div>
+          </div>
+        )}
+        {/* Step 4: Results & Comparison */}
+        {taxStep === 4 && (
+          <div className="space-y-6 animate-fade-in">
+            <Button onClick={calculateTax} className="w-full bg-slate-700 hover:bg-slate-800 mb-2">Calculate Tax Liability</Button>
+            <Button onClick={handleCompareOtherRegime} className="w-full bg-blue-700 hover:bg-blue-800 mb-4">Compare with other regime</Button>
+            {taxResults && (
+              <div className="p-4 rounded-lg bg-gray-50 border border-gray-200 mt-4">
+                <h3 className="text-lg font-medium text-gray-900 mb-3">Tax Calculation Summary</h3>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Gross Salary Income:</span>
+                    <span className="font-medium">₹{taxResults.grossSalary.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Standard Deduction:</span>
+                    <span className="font-medium">₹{taxResults.stdDeduction.toLocaleString('en-IN')}</span>
+                  </div>
+                  {regime === "old" && (
+                    <>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Section 80C:</span>
+                        <span className="font-medium">₹{taxResults.section80C.toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Section 80D:</span>
+                        <span className="font-medium">₹{taxResults.section80D.toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Section 80G:</span>
+                        <span className="font-medium">₹{taxResults.section80G.toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Housing Loan Interest:</span>
+                        <span className="font-medium">₹{taxResults.housingLoanInterest.toLocaleString('en-IN')}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">NPS Contribution:</span>
+                        <span className="font-medium">₹{taxResults.npsContribution.toLocaleString('en-IN')}</span>
+                      </div>
+                    </>
+                  )}
+                  <div className="flex justify-between text-sm font-semibold">
+                    <span>Total Deductions:</span>
+                    <span className="font-medium">₹{taxResults.totalDeductions.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Taxable Income:</span>
+                    <span className="font-medium">₹{taxResults.taxableIncome.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Basic Tax:</span>
+                    <span className="font-medium">₹{taxResults.basicTax.toLocaleString('en-IN')}</span>
+                  </div>
+                  {taxResults.surcharge > 0 && (
+                    <div className="flex justify-between text-sm">
+                      <span className="text-gray-600">Surcharge:</span>
+                      <span className="font-medium">₹{taxResults.surcharge.toLocaleString('en-IN')}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Health & Education Cess (4%):</span>
+                    <span className="font-medium">₹{taxResults.cess.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div className="h-px bg-gray-200 my-2"></div>
+                  <div className="flex justify-between font-semibold">
+                    <span>Total Tax Liability:</span>
+                    <span className="text-slate-700 text-lg">₹{taxResults.totalTax.toLocaleString('en-IN')}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Effective Tax Rate:</span>
+                    <span className="font-medium">{taxResults.effectiveRate.toFixed(2)}%</span>
+                  </div>
+                </div>
+                <div className="flex flex-wrap gap-2 mt-4">
+                  <Button variant="outline" onClick={handleDownloadPDF}>
+                    Download as PDF
+                  </Button>
+                  <Button variant="outline" onClick={() => setShowEmailModal(true)}>
+                    Email Results
+                  </Button>
+                </div>
+                {emailStatus && <p className="text-sm mt-2">{emailStatus}</p>}
+              </div>
+            )}
+          </div>
+        )}
+      </CardContent>
+      <CardFooter className="flex justify-between text-sm text-gray-500">
+        <p>Tax calculations are based on FY 2024-25 rates</p>
+      </CardFooter>
+    </Card>
+  </TabsContent>
 
   return (
     <Layout>
@@ -828,9 +1371,6 @@ const Tools = () => {
                 <TabsTrigger value="irr" className="text-sm">
                   <PercentCircle className="mr-1 h-4 w-4" /> IRR
                 </TabsTrigger>
-                <TabsTrigger value="compare" className="text-sm">
-                  <ScaleIcon className="mr-1 h-4 w-4" /> Tax Compare
-                </TabsTrigger>
               </TabsList>
             </div>
             
@@ -843,128 +1383,171 @@ const Tools = () => {
                     Income Tax Calculator (FY 2024-25)
                   </CardTitle>
                   <CardDescription>
-                    Calculate your income tax liability based on latest tax slabs and rules.
+                    Calculate your income tax liability for FY 2024-25. Enter your income and deduction details. Results update instantly and compare both regimes.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="income">Annual Income (₹)</Label>
-                        <div className="relative">
-                          <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                          <Input
-                            id="income"
-                            type="number"
-                            placeholder="500000"
-                            className="pl-10"
-                            value={income || ""}
-                            onChange={(e) => setIncome(parseFloat(e.target.value) || 0)}
-                          />
-                        </div>
+                  <form className="space-y-8" autoComplete="off" onSubmit={e => e.preventDefault()}>
+                    {/* Income Inputs */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-4">
+                        <Label className="flex items-center gap-2" htmlFor="salaryIncome">
+                          Income from Salary
+                          <span className="tooltip-i" tabIndex={0} data-tooltip="Total salary earned before tax exemptions like HRA or LTA.">i</span>
+                        </Label>
+                        <Input id="salaryIncome" type="number" min="0" value={salaryIncome || ""} onChange={e => setSalaryIncome(Math.max(0, parseFloat(e.target.value) || 0))} />
                       </div>
-                      
-                      <div className="space-y-2">
-                        <Label htmlFor="regime">Tax Regime</Label>
-                        <Select value={regime} onValueChange={setRegime}>
-                          <SelectTrigger id="regime">
-                            <SelectValue placeholder="Select tax regime" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="new">New Regime</SelectItem>
-                            <SelectItem value="old">Old Regime</SelectItem>
-                          </SelectContent>
-                        </Select>
+                      <div className="space-y-4">
+                        <Label className="flex items-center gap-2" htmlFor="exemptAllowances">
+                          Exempt Allowances
+                          <span className="tooltip-i" tabIndex={0} data-tooltip="Include amounts like HRA or LTA that are partially or fully exempt.">i</span>
+                        </Label>
+                        <Input id="exemptAllowances" type="number" min="0" value={exemptAllowances || ""} onChange={e => setExemptAllowances(Math.max(0, parseFloat(e.target.value) || 0))} />
+                      </div>
+                      <div className="space-y-4">
+                        <Label className="flex items-center gap-2" htmlFor="otherSourcesIncome">
+                          Income from Other Sources
+                          <span className="tooltip-i" tabIndex={0} data-tooltip="Any other income such as interest on savings, fixed deposits, gifts, or freelance work.">i</span>
+                        </Label>
+                        <Input id="otherSourcesIncome" type="number" min="0" value={otherSourcesIncome || ""} onChange={e => setOtherSourcesIncome(Math.max(0, parseFloat(e.target.value) || 0))} />
+                      </div>
+                      <div className="space-y-4">
+                        <Label className="flex items-center gap-2" htmlFor="homeLoanSelf">
+                          Interest on Home Loan – Self-occupied
+                          <span className="tooltip-i" tabIndex={0} data-tooltip="Interest paid on loan for a self-used home. Max ₹2,00,000 allowed under Sec 24(b).">i</span>
+                        </Label>
+                        <Input id="homeLoanSelf" type="number" min="0" value={homeLoanSelf || ""} onChange={e => setHomeLoanSelf(Math.max(0, parseFloat(e.target.value) || 0))} />
+                      </div>
+                      <div className="space-y-4">
+                        <Label className="flex items-center gap-2" htmlFor="rentalIncome">
+                          Rental Income Received
+                          <span className="tooltip-i" tabIndex={0} data-tooltip="Net rent after deducting property taxes or repairs.">i</span>
+                        </Label>
+                        <Input id="rentalIncome" type="number" min="0" value={rentalIncome || ""} onChange={e => setRentalIncome(Math.max(0, parseFloat(e.target.value) || 0))} />
+                      </div>
+                      <div className="space-y-4">
+                        <Label className="flex items-center gap-2" htmlFor="homeLoanLetout">
+                          Interest on Home Loan – Let-out Property
+                          <span className="tooltip-i" tabIndex={0} data-tooltip="Entire interest is deductible for a let-out property.">i</span>
+                        </Label>
+                        <Input id="homeLoanLetout" type="number" min="0" value={homeLoanLetout || ""} onChange={e => setHomeLoanLetout(Math.max(0, parseFloat(e.target.value) || 0))} />
+                      </div>
+                      <div className="space-y-4">
+                        <Label className="flex items-center gap-2" htmlFor="otherIncome">
+                          Other Income
+                          <span className="tooltip-i" tabIndex={0} data-tooltip="Include capital gains, lottery winnings, or any other income.">i</span>
+                        </Label>
+                        <Input id="otherIncome" type="number" min="0" value={otherIncome || ""} onChange={e => setOtherIncome(Math.max(0, parseFloat(e.target.value) || 0))} />
                       </div>
                     </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="age">Age Category</Label>
-                        <Select value={age} onValueChange={setAge}>
-                          <SelectTrigger id="age">
-                            <SelectValue placeholder="Select age category" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="below60">Below 60 years</SelectItem>
-                            <SelectItem value="60to80">60 to 80 years</SelectItem>
-                            <SelectItem value="above80">Above 80 years</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      {regime === "old" && (
+                    {/* Deductions Section */}
+                    <div className="border rounded-lg p-4 bg-slate-50 mt-6">
+                      <h4 className="font-semibold mb-2">Deductions (Chapter VI-A)</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label htmlFor="deductions">Deductions (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="deductions"
-                              type="number"
-                              placeholder="50000"
-                              className="pl-10"
-                              value={deductions || ""}
-                              onChange={(e) => setDeductions(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
+                          <Label className="flex items-center gap-2" htmlFor="section80C">
+                            80C – Basic Deductions
+                            <span className="tooltip-i" tabIndex={0} data-tooltip="PPF, LIC, ELSS, school fees, etc., max ₹1.5 lakh.">i</span>
+                          </Label>
+                          <Input id="section80C" type="number" min="0" value={section80C || ""} onChange={e => setSection80C(Math.max(0, parseFloat(e.target.value) || 0))} />
                         </div>
+                        <div className="space-y-2">
+                          <Label className="flex items-center gap-2" htmlFor="section80TTA">
+                            80TTA – Savings Interest
+                            <span className="tooltip-i" tabIndex={0} data-tooltip="Deduction up to ₹10,000 for savings interest (non-senior citizens).">i</span>
+                          </Label>
+                          <Input id="section80TTA" type="number" min="0" value={section80TTA || ""} onChange={e => setSection80TTA(Math.max(0, parseFloat(e.target.value) || 0))} />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="flex items-center gap-2" htmlFor="section80D">
+                            80D – Medical Insurance
+                            <span className="tooltip-i" tabIndex={0} data-tooltip="Premiums for health insurance of self, family, parents.">i</span>
+                          </Label>
+                          <Input id="section80D" type="number" min="0" value={section80D || ""} onChange={e => setSection80D(Math.max(0, parseFloat(e.target.value) || 0))} />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="flex items-center gap-2" htmlFor="section80G">
+                            80G – Donations
+                            <span className="tooltip-i" tabIndex={0} data-tooltip="Donations to approved charities and relief funds.">i</span>
+                          </Label>
+                          <Input id="section80G" type="number" min="0" value={section80G || ""} onChange={e => setSection80G(Math.max(0, parseFloat(e.target.value) || 0))} />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="flex items-center gap-2" htmlFor="section80EEA">
+                            80EEA – Interest on Housing Loan
+                            <span className="tooltip-i" tabIndex={0} data-tooltip="Extra ₹1.5 lakh deduction for affordable housing (subject to conditions).">i</span>
+                          </Label>
+                          <Input id="section80EEA" type="number" min="0" value={section80EEA || ""} onChange={e => setSection80EEA(Math.max(0, parseFloat(e.target.value) || 0))} />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="flex items-center gap-2" htmlFor="section80CCD1B">
+                            80CCD(1B) – Employee's NPS Contribution
+                            <span className="tooltip-i" tabIndex={0} data-tooltip="Extra ₹50,000 over 80C for NPS.">i</span>
+                          </Label>
+                          <Input id="section80CCD1B" type="number" min="0" value={section80CCD1B || ""} onChange={e => setSection80CCD1B(Math.max(0, parseFloat(e.target.value) || 0))} />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="flex items-center gap-2" htmlFor="section80CCD2">
+                            80CCD(2) – Employer's NPS Contribution
+                            <span className="tooltip-i" tabIndex={0} data-tooltip="Deduction for employer NPS contributions (up to 10% of salary).">i</span>
+                          </Label>
+                          <Input id="section80CCD2" type="number" min="0" value={section80CCD2 || ""} onChange={e => setSection80CCD2(Math.max(0, parseFloat(e.target.value) || 0))} />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="flex items-center gap-2" htmlFor="otherDeductions">
+                            Other Deductions
+                            <span className="tooltip-i" tabIndex={0} data-tooltip="Includes deductions under 80E (education), 80U (disability), etc.">i</span>
+                          </Label>
+                          <Input id="otherDeductions" type="number" min="0" value={otherDeductions || ""} onChange={e => setOtherDeductions(Math.max(0, parseFloat(e.target.value) || 0))} />
+                        </div>
+                      </div>
+                    </div>
+                    {/* Buttons */}
+                    <div className="flex flex-wrap gap-4 mt-6">
+                      <Button type="button" variant="outline" onClick={resetTaxForm}>Reset</Button>
+                    </div>
+                  </form>
+                  {/* Results Section */}
+                  <div className="mt-10">
+                    <h3 className="text-lg font-semibold mb-4">Tax Calculation Results</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* Old Regime Card */}
+                      <Card className="border border-gray-200">
+                        <CardHeader className="bg-gray-50 border-b">
+                          <CardTitle className="text-base font-semibold">Old Regime</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2 py-4">
+                          <div className="flex justify-between"><span>Taxable Income</span><span>₹{oldTaxResult.taxableIncome.toLocaleString('en-IN')}</span></div>
+                          <div className="flex justify-between"><span>Basic Tax</span><span>₹{oldTaxResult.basicTax.toLocaleString('en-IN')}</span></div>
+                          <div className="flex justify-between"><span>Surcharge</span><span>₹{oldTaxResult.surcharge.toLocaleString('en-IN')}</span></div>
+                          <div className="flex justify-between"><span>Cess (4%)</span><span>₹{oldTaxResult.cess.toLocaleString('en-IN')}</span></div>
+                          <div className="flex justify-between font-semibold"><span>Total Tax</span><span>₹{oldTaxResult.totalTax.toLocaleString('en-IN')}</span></div>
+                        </CardContent>
+                      </Card>
+                      {/* New Regime Card */}
+                      <Card className="border border-gray-200">
+                        <CardHeader className="bg-gray-50 border-b">
+                          <CardTitle className="text-base font-semibold">New Regime</CardTitle>
+                        </CardHeader>
+                        <CardContent className="space-y-2 py-4">
+                          <div className="flex justify-between"><span>Taxable Income</span><span>₹{newTaxResult.taxableIncome.toLocaleString('en-IN')}</span></div>
+                          <div className="flex justify-between"><span>Basic Tax</span><span>₹{newTaxResult.basicTax.toLocaleString('en-IN')}</span></div>
+                          <div className="flex justify-between"><span>Surcharge</span><span>₹{newTaxResult.surcharge.toLocaleString('en-IN')}</span></div>
+                          <div className="flex justify-between"><span>Cess (4%)</span><span>₹{newTaxResult.cess.toLocaleString('en-IN')}</span></div>
+                          <div className="flex justify-between font-semibold"><span>Total Tax</span><span>₹{newTaxResult.totalTax.toLocaleString('en-IN')}</span></div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                    {/* Regime Recommendation */}
+                    <div className="mt-6 p-4 rounded-lg bg-blue-50 border border-blue-200 text-blue-900 font-semibold text-center">
+                      {oldTaxResult.totalTax < newTaxResult.totalTax ? (
+                        <>Old Regime is more beneficial for you.</>
+                      ) : oldTaxResult.totalTax > newTaxResult.totalTax ? (
+                        <>New Regime is more beneficial for you.</>
+                      ) : (
+                        <>Both regimes result in the same tax liability.</>
                       )}
                     </div>
-                    
-                    <Button 
-                      onClick={calculateTax} 
-                      className="w-full bg-slate-700 hover:bg-slate-800"
-                    >
-                      Calculate Tax Liability
-                    </Button>
-                    
-                    {taxResults && (
-                      <div className="p-4 rounded-lg bg-gray-50 border border-gray-200">
-                        <h3 className="text-lg font-medium text-gray-900 mb-3">Tax Calculation Summary</h3>
-                        
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span className="text-gray-600">Taxable Income:</span>
-                            <span className="font-medium">₹{taxResults.taxableIncome.toLocaleString('en-IN')}</span>
-                          </div>
-                          
-                          <div className="flex justify-between text-sm">
-                            <span className="text-gray-600">Basic Tax:</span>
-                            <span className="font-medium">₹{taxResults.basicTax.toLocaleString('en-IN')}</span>
-                          </div>
-                          
-                          {taxResults.surcharge > 0 && (
-                            <div className="flex justify-between text-sm">
-                              <span className="text-gray-600">Surcharge:</span>
-                              <span className="font-medium">₹{taxResults.surcharge.toLocaleString('en-IN')}</span>
-                            </div>
-                          )}
-                          
-                          <div className="flex justify-between text-sm">
-                            <span className="text-gray-600">Health & Education Cess (4%):</span>
-                            <span className="font-medium">₹{taxResults.cess.toLocaleString('en-IN')}</span>
-                          </div>
-                          
-                          <div className="h-px bg-gray-200 my-2"></div>
-                          
-                          <div className="flex justify-between font-semibold">
-                            <span>Total Tax Liability:</span>
-                            <span className="text-slate-700 text-lg">₹{taxResults.totalTax.toLocaleString('en-IN')}</span>
-                          </div>
-                          
-                          <div className="flex justify-between text-sm">
-                            <span className="text-gray-600">Effective Tax Rate:</span>
-                            <span className="font-medium">{taxResults.effectiveRate.toFixed(2)}%</span>
-                          </div>
-                        </div>
-                        
-                        <p className="text-sm text-gray-500 mt-3 italic">
-                          {regime === "new" ? 
-                            "New regime doesn't allow most exemptions and deductions but has lower tax rates." : 
-                            "Old regime allows for various exemptions and deductions under sections 80C, 80D, etc."}
-                        </p>
-                      </div>
-                    )}
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between text-sm text-gray-500">
@@ -2071,378 +2654,6 @@ const Tools = () => {
                 </CardContent>
                 <CardFooter className="flex justify-between text-sm text-gray-500">
                   <p>IRR is commonly used to evaluate and compare investment opportunities</p>
-                </CardFooter>
-              </Card>
-            </TabsContent>
-
-            {/* Tax Comparison Calculator */}
-            <TabsContent value="compare">
-              <Card className="shadow-lg">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <ScaleIcon className="h-6 w-6 text-slate-800" />
-                    Tax Regime Comparison
-                  </CardTitle>
-                  <CardDescription>
-                    Compare tax liability between old and new regimes across different financial years.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-8">
-                    <div className="flex justify-between items-center">
-                      <h3 className="text-lg font-medium">Financial Year</h3>
-                      <Select value={selectedYear} onValueChange={setSelectedYear}>
-                        <SelectTrigger className="w-40">
-                          <SelectValue placeholder="Select FY" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="2024-25">FY 2024-25</SelectItem>
-                          <SelectItem value="2023-24">FY 2023-24</SelectItem>
-                          <SelectItem value="2022-23">FY 2022-23</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    <div className="space-y-5">
-                      <h3 className="text-lg font-medium border-b pb-2">Sources of Income</h3>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <Label htmlFor="salaryIncome">Salary Income (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="salaryIncome"
-                              type="number"
-                              placeholder="1000000"
-                              className="pl-10"
-                              value={salaryIncome || ""}
-                              onChange={(e) => setSalaryIncome(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="housePropertyIncome">Income from House Property (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="housePropertyIncome"
-                              type="number"
-                              placeholder="0"
-                              className="pl-10"
-                              value={housePropertyIncome || ""}
-                              onChange={(e) => setHousePropertyIncome(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="businessIncome">Business/Profession Income (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="businessIncome"
-                              type="number"
-                              placeholder="0"
-                              className="pl-10"
-                              value={businessIncome || ""}
-                              onChange={(e) => setBusinessIncome(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="capitalGainsIncome">Capital Gains Income (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="capitalGainsIncome"
-                              type="number"
-                              placeholder="0"
-                              className="pl-10"
-                              value={capitalGainsIncome || ""}
-                              onChange={(e) => setCapitalGainsIncome(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="otherIncome">Income from Other Sources (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="otherIncome"
-                              type="number"
-                              placeholder="0"
-                              className="pl-10"
-                              value={otherIncome || ""}
-                              onChange={(e) => setOtherIncome(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-5">
-                      <h3 className="text-lg font-medium border-b pb-2">Deductions & Exemptions (Old Regime)</h3>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2">
-                          <Label htmlFor="section80C">Section 80C (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="section80C"
-                              type="number"
-                              placeholder="0"
-                              className="pl-10"
-                              value={section80C || ""}
-                              onChange={(e) => setSection80C(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
-                          <p className="text-xs text-gray-500">Max: ₹1,50,000 (PPF, ELSS, LIC, etc.)</p>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="section80D">Section 80D (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="section80D"
-                              type="number"
-                              placeholder="0"
-                              className="pl-10"
-                              value={section80D || ""}
-                              onChange={(e) => setSection80D(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
-                          <p className="text-xs text-gray-500">Max: ₹25,000 (₹50,000 for senior citizens) - Medical Insurance</p>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="housingLoanInterest">Housing Loan Interest (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="housingLoanInterest"
-                              type="number"
-                              placeholder="0"
-                              className="pl-10"
-                              value={housingLoanInterest || ""}
-                              onChange={(e) => setHousingLoanInterest(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
-                          <p className="text-xs text-gray-500">Max: ₹2,00,000 for self-occupied property</p>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="npsContribution">NPS Contribution (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="npsContribution"
-                              type="number"
-                              placeholder="0"
-                              className="pl-10"
-                              value={npsContribution || ""}
-                              onChange={(e) => setNpsContribution(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
-                          <p className="text-xs text-gray-500">Additional ₹50,000 under Sec 80CCD(1B)</p>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="section80G">Section 80G Donations (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="section80G"
-                              type="number"
-                              placeholder="0"
-                              className="pl-10"
-                              value={section80G || ""}
-                              onChange={(e) => setSection80G(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="standardDeduction">Standard Deduction (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="standardDeduction"
-                              type="number"
-                              placeholder="50000"
-                              className="pl-10"
-                              value={standardDeduction || ""}
-                              disabled
-                            />
-                          </div>
-                          <p className="text-xs text-gray-500">Fixed at ₹50,000 for salaried employees</p>
-                        </div>
-                        
-                        <div className="space-y-2">
-                          <Label htmlFor="professionalTax">Professional Tax (₹)</Label>
-                          <div className="relative">
-                            <IndianRupee className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-                            <Input
-                              id="professionalTax"
-                              type="number"
-                              placeholder="2400"
-                              className="pl-10"
-                              value={professionalTax || ""}
-                              onChange={(e) => setProfessionalTax(parseFloat(e.target.value) || 0)}
-                            />
-                          </div>
-                          <p className="text-xs text-gray-500">Varies by state, typically around ₹2,400</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <Button 
-                      onClick={calculateTaxComparison} 
-                      className="w-full bg-slate-700 hover:bg-slate-800"
-                    >
-                      Compare Tax Regimes
-                    </Button>
-                    
-                    {taxComparison && (
-                      <div className="space-y-6 mt-4">
-                        <div className="flex justify-between items-center">
-                          <h3 className="text-xl font-semibold text-slate-800">Tax Comparison Results</h3>
-                          <div className="bg-gray-100 px-3 py-1 rounded-full text-sm">
-                            <span className="font-medium">FY {selectedYear}</span>
-                          </div>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                          {/* Old Regime Card */}
-                          <div className={`border rounded-lg shadow-sm overflow-hidden ${taxComparison.recommended === 'old' ? 'border-green-500 bg-green-50' : ''}`}>
-                            <div className="bg-gray-50 border-b px-4 py-3 flex justify-between items-center">
-                              <h4 className="font-semibold text-lg">Old Tax Regime</h4>
-                              {taxComparison.recommended === 'old' && (
-                                <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Recommended</span>
-                              )}
-                            </div>
-                            <div className="p-4 space-y-3">
-                              <div className="flex justify-between">
-                                <span className="text-gray-600">Total Income:</span>
-                                <span className="font-medium">₹{taxComparison.totalIncome.toLocaleString('en-IN')}</span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span className="text-gray-600">Total Deductions:</span>
-                                <span className="font-medium">₹{taxComparison.old.deductions.toLocaleString('en-IN')}</span>
-                              </div>
-                              <div className="flex justify-between font-medium">
-                                <span>Taxable Income:</span>
-                                <span>₹{taxComparison.old.taxableIncome.toLocaleString('en-IN')}</span>
-                              </div>
-                              <div className="h-px bg-gray-200 my-2"></div>
-                              <div className="flex justify-between">
-                                <span className="text-gray-600">Basic Tax:</span>
-                                <span className="font-medium">₹{taxComparison.old.basicTax.toLocaleString('en-IN', {maximumFractionDigits: 0})}</span>
-                              </div>
-                              {taxComparison.old.surcharge > 0 && (
-                                <div className="flex justify-between">
-                                  <span className="text-gray-600">Surcharge:</span>
-                                  <span className="font-medium">₹{taxComparison.old.surcharge.toLocaleString('en-IN', {maximumFractionDigits: 0})}</span>
-                                </div>
-                              )}
-                              <div className="flex justify-between">
-                                <span className="text-gray-600">Health & Education Cess:</span>
-                                <span className="font-medium">₹{taxComparison.old.cess.toLocaleString('en-IN', {maximumFractionDigits: 0})}</span>
-                              </div>
-                              <div className="h-px bg-gray-200 my-2"></div>
-                              <div className="flex justify-between text-lg font-semibold">
-                                <span>Total Tax Liability:</span>
-                                <span className={taxComparison.recommended === 'old' ? 'text-green-700' : ''}>
-                                  ₹{taxComparison.old.totalTax.toLocaleString('en-IN', {maximumFractionDigits: 0})}
-                                </span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span className="text-gray-600">Effective Tax Rate:</span>
-                                <span className="font-medium">{taxComparison.old.effectiveRate.toFixed(2)}%</span>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          {/* New Regime Card */}
-                          <div className={`border rounded-lg shadow-sm overflow-hidden ${taxComparison.recommended === 'new' ? 'border-green-500 bg-green-50' : ''}`}>
-                            <div className="bg-gray-50 border-b px-4 py-3 flex justify-between items-center">
-                              <h4 className="font-semibold text-lg">New Tax Regime</h4>
-                              {taxComparison.recommended === 'new' && (
-                                <span className="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">Recommended</span>
-                              )}
-                            </div>
-                            <div className="p-4 space-y-3">
-                              <div className="flex justify-between">
-                                <span className="text-gray-600">Total Income:</span>
-                                <span className="font-medium">₹{taxComparison.totalIncome.toLocaleString('en-IN')}</span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span className="text-gray-600">Total Deductions:</span>
-                                <span className="font-medium">₹{taxComparison.new.deductions.toLocaleString('en-IN')}</span>
-                              </div>
-                              <div className="flex justify-between font-medium">
-                                <span>Taxable Income:</span>
-                                <span>₹{taxComparison.new.taxableIncome.toLocaleString('en-IN')}</span>
-                              </div>
-                              <div className="h-px bg-gray-200 my-2"></div>
-                              <div className="flex justify-between">
-                                <span className="text-gray-600">Basic Tax:</span>
-                                <span className="font-medium">₹{taxComparison.new.basicTax.toLocaleString('en-IN', {maximumFractionDigits: 0})}</span>
-                              </div>
-                              {taxComparison.new.surcharge > 0 && (
-                                <div className="flex justify-between">
-                                  <span className="text-gray-600">Surcharge:</span>
-                                  <span className="font-medium">₹{taxComparison.new.surcharge.toLocaleString('en-IN', {maximumFractionDigits: 0})}</span>
-                                </div>
-                              )}
-                              <div className="flex justify-between">
-                                <span className="text-gray-600">Health & Education Cess:</span>
-                                <span className="font-medium">₹{taxComparison.new.cess.toLocaleString('en-IN', {maximumFractionDigits: 0})}</span>
-                              </div>
-                              <div className="h-px bg-gray-200 my-2"></div>
-                              <div className="flex justify-between text-lg font-semibold">
-                                <span>Total Tax Liability:</span>
-                                <span className={taxComparison.recommended === 'new' ? 'text-green-700' : ''}>
-                                  ₹{taxComparison.new.totalTax.toLocaleString('en-IN', {maximumFractionDigits: 0})}
-                                </span>
-                              </div>
-                              <div className="flex justify-between">
-                                <span className="text-gray-600">Effective Tax Rate:</span>
-                                <span className="font-medium">{taxComparison.new.effectiveRate.toFixed(2)}%</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        
-                        <div className="rounded-lg bg-gray-50 border p-4">
-                          <div className="flex justify-between items-center mb-3">
-                            <h4 className="font-semibold text-lg">Tax Savings</h4>
-                            <div className="font-medium text-lg text-green-600">
-                              ₹{Math.abs(taxComparison.difference).toLocaleString('en-IN', {maximumFractionDigits: 0})}
-                            </div>
-                          </div>
-                          <p className="text-sm text-gray-600">
-                            {taxComparison.difference > 0 ? 
-                              `You will save ₹${Math.abs(taxComparison.difference).toLocaleString('en-IN', {maximumFractionDigits: 0})} by choosing the New Tax Regime.` : 
-                              `You will save ₹${Math.abs(taxComparison.difference).toLocaleString('en-IN', {maximumFractionDigits: 0})} by choosing the Old Tax Regime.`}
-                          </p>
-                          <div className="mt-3 p-3 border rounded bg-blue-50 text-blue-800 text-sm">
-                            <strong>Recommendation:</strong> {taxComparison.recommended === 'old' ? 
-                              "The Old Tax Regime is more beneficial for you. If you have significant investments and deductions, this is typically the better choice." : 
-                              "The New Tax Regime is more beneficial for you. This is typically better if you have minimal investments or deductions."}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </CardContent>
-                <CardFooter className="flex justify-between text-sm text-gray-500 border-t pt-4">
-                  <p>Tax calculations are based on Income Tax Act provisions for FY {selectedYear}</p>
                 </CardFooter>
               </Card>
             </TabsContent>
